@@ -1,4 +1,5 @@
 import Books from "./components/Books/Books";
+import NewBooks from "./components/NewBook/NewBook";
 
 function App() {
   const books = [
@@ -16,8 +17,13 @@ function App() {
     },
   ];
 
+  const addBookHandler = (book) => {
+    console.log(book);
+  };
+
   return (
     <div>
+      <NewBooks onAddBook={addBookHandler} />
       <Books items={books} />
     </div>
   );
