@@ -16,7 +16,6 @@ function BookItem(props) {
         <h2>{props.item.name}</h2>
         <div className="book-item__page">{props.item.page}</div>
       </div>
-      <button onClick={clickHadler}>Change Book Name</button>
     </Card>
   );
 }

@@ -1,8 +1,9 @@
+import { useState } from "react";
 import Books from "./components/Books/Books";
 import NewBooks from "./components/NewBook/NewBook";
 
 function App() {
-  const books = [
+  const DUMMY_EXPENSES = [
     {
       id: "e1",
       name: "The Book of the Day",
@@ -17,8 +18,14 @@ function App() {
     },
   ];
 
+  const [books, setBooks] = useState(DUMMY_EXPENSES);
+  const [filteredYear, setFilteredYear] = useState("");
+
   const addBookHandler = (book) => {
-    console.log(book);
+    setBooks((prevBooks) => {
+      return [...prevBooks, book];
+    });
+    console.log(books);
   };
 
   return (

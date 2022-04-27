@@ -36,13 +36,14 @@ const BookForm = (props) => {
     event.preventDefault();
 
     const BookData = {
+      id: Math.random().toString(),
       name: userInput.enteredName,
       page: userInput.enteredPage,
-      date: new Date(userInput.enteredDate),
+      startDate: new Date(userInput.enteredDate),
     };
 
     props.onSaveBookData(BookData);
-    setUserInput({ name: "", page: "", date: "" });
+    setUserInput({ enteredName: "", enteredPage: "", enteredDate: "" });
   };
 
   return (
@@ -78,6 +79,9 @@ const BookForm = (props) => {
         </div>
         <div className="new-book__actions">
           <button type="submit">Add Book</button>
+          <button type="button" onClick={props.onCancel}>
+            Cancel
+          </button>
         </div>
       </div>
     </form>
