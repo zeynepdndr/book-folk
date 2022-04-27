@@ -38,7 +38,7 @@ const BookForm = (props) => {
     const BookData = {
       id: Math.random().toString(),
       name: userInput.enteredName,
-      page: userInput.enteredPage,
+      page: +userInput.enteredPage,
       startDate: new Date(userInput.enteredDate),
     };
 

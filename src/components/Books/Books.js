@@ -3,6 +3,7 @@ import Card from "../UI/Card";
 import "./Books.css";
 import BookFilter from "./BookFilter";
 import { useState } from "react";
+import BooksChart from "./BooksChart";
 
 function Books(props) {
   const [filteredYear, setFilteredYear] = useState(props.items);
@@ -25,6 +26,7 @@ function Books(props) {
   return (
     <Card className="books">
       <BookFilter selected={filteredYear} onChangeYear={filterChangeYear} />
+      <BooksChart items={filteredBooks} />
       {bookContent}
     </Card>
   );

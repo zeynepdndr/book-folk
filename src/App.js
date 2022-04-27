@@ -14,7 +14,7 @@ function App() {
       id: "e2",
       name: "The Book of the Month",
       page: 546,
-      startDate: new Date(2021, 2, 12),
+      startDate: new Date("may 01, 2021 01:59:59"),
     },
   ];
 
@@ -25,7 +25,6 @@ function App() {
     setBooks((prevBooks) => {
       return [...prevBooks, book];
     });
-    console.log(books);
   };
 
   return (
