@@ -20,6 +20,13 @@
   width: 20rem;
   max-width: 100%;
 }
+.new-book__control.invalid input {
+  background-color: rgb(211, 98, 98);
+  border-color: red;
+}
+.new-book__control.invalid label {
+  color: red;
+}
 
 .new-book__actions {
   margin: 20px;

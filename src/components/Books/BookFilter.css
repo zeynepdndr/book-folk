@@ -3,6 +3,12 @@
   padding: 0 1rem;
 }
 
+.books-filter__empty {
+  color: white;
+  padding: 0 1rem;
+  text-align: center;
+}
+
 .books-filter__control {
   display: flex;
   width: 100%;

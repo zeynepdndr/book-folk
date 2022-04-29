@@ -5,8 +5,9 @@ import Card from "../UI/Card";
 
 function BookItem(props) {
   const [name, setName] = useState(props.item.name);
-  const clickHadler = () => {
+  const clickHandler = () => {
     setName("updated");
+    props.onEdit(props.item);
   };
 
   return (
@@ -15,6 +16,7 @@ function BookItem(props) {
       <div className="book-item__description">
         <h2>{props.item.name}</h2>
         <div className="book-item__page">{props.item.page}</div>
+        <button onClick={clickHandler}>EDIT</button>
       </div>
     </Card>
   );

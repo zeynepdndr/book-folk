@@ -8,6 +8,10 @@ import BooksChart from "./BooksChart";
 function Books(props) {
   const [filteredYear, setFilteredYear] = useState(props.items);
 
+  const editBookHandler = (item) => {
+    // setFilteredYear(selectedYear);
+    console.log("edit book clicked", item);
+  };
   const filterChangeYear = (selectedYear) => {
     setFilteredYear(selectedYear);
   };
@@ -16,11 +20,11 @@ function Books(props) {
     return book.startDate.getFullYear().toString() === filteredYear;
   });
 
-  let bookContent = <p>No book found!</p>;
+  let bookContent = <p className="books-filter__empty">No book found!</p>;
 
   if (filteredBooks.length > 0) {
     bookContent = filteredBooks.map((item) => (
-      <BookItem key={item.id} item={item} />
+      <BookItem key={item.id} item={item} onEdit={editBookHandler} />
     ));
   }
   return (
