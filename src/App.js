@@ -2,38 +2,34 @@ import { useEffect, useState } from "react";
 import Books from "./components/Books/Books";
 import NewBooks from "./components/NewBook/NewBook";
 import { db } from "./firebase-config";
-import { collection, getDocs } from "firebase/firestore";
+import { collection, getDocs, addDoc } from "firebase/firestore";
 
 function App() {
   const [books, setBooks] = useState([]);
+  const bookCollection = collection(db, "books");
 
   const getBooks = async () => {
-    const bookCollection = collection(db, "books");
     const bookSnapshot = await getDocs(bookCollection);
-    const bookList = bookSnapshot.docs.map((doc) => doc.data());
+    const bookList = bookSnapshot.docs.map((doc) => ({
+      ...doc.data(),
+      id: doc.id,
+    }));
     return bookList;
   };
 
-  useEffect(() => {
-    getBooks().then((books) => {
-      setBooks(books);
-    });
-  }, []);
-
-  // const DUMMY_EXPENSES = [
-  //   {
-  //     id: "e1",
-  //     name: "The Book of the Day",
-  //     page: 545,
-  //     startDate: new Date("sep 01, 2020 01:59:59"),
-  //   },
-  // ];
-
-  const addBookHandler = (book) => {
+  const addBookHandler = async (book) => {
+    await addDoc(bookCollection, book);
     setBooks((prevBooks) => {
       return [...prevBooks, book];
     });
   };
+
+  useEffect(() => {
+    getBooks().then((books) => {
+      console.log(books);
+      setBooks(books);
+    });
+  }, []);
 
   return (
     <div>
