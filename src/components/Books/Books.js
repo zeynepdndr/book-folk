@@ -4,6 +4,7 @@ import "./Books.css";
 import BookFilter from "./BookFilter";
 import { useState } from "react";
 import BooksChart from "./BooksChart";
+import { firestoreTimestampToDate } from "../../utils/firestoreTimestampToDate";
 
 function Books(props) {
   const [filteredYear, setFilteredYear] = useState(props.items);
@@ -17,7 +18,10 @@ function Books(props) {
   };
 
   const filteredBooks = props.items.filter((book) => {
-    return book.startDate.getFullYear().toString() === filteredYear;
+    if (book.startDate) {
+      let bookYear = firestoreTimestampToDate(book.startDate).getFullYear();
+      return bookYear.toString() === filteredYear;
+    } else return false;
   });
 
   let bookContent = <p className="books-filter__empty">No book found!</p>;

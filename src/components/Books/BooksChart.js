@@ -1,4 +1,5 @@
 import Chart from "../Charts/Chart";
+import { firestoreTimestampToDate } from "../../utils/firestoreTimestampToDate";
 
 const BooksChart = (props) => {
   const chartData = [
@@ -17,7 +18,8 @@ const BooksChart = (props) => {
   ];
 
   props.items.forEach((book) => {
-    let a = book.startDate.getMonth();
+    let b = firestoreTimestampToDate(book.startDate);
+    let a = b.getMonth();
     chartData[a].value += book.page;
   });
 
