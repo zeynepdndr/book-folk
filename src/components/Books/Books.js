@@ -1,17 +1,23 @@
 import BookItem from "./BookItem";
 import Card from "../UI/Card";
-import "./Books.css";
+import styles from "./Books.module.css";
 import BookFilter from "./BookFilter";
 import { useState } from "react";
 import BooksChart from "./BooksChart";
 import { firestoreTimestampToDate } from "../../utils/firestoreTimestampToDate";
+import { db } from "../../firebase-config";
+import { doc, deleteDoc } from "firebase/firestore";
 
-function Books(props) {
+const Books = (props) => {
   const [filteredYear, setFilteredYear] = useState(props.items);
 
   const editBookHandler = (item) => {
     // setFilteredYear(selectedYear);
     console.log("edit book clicked", item);
+  };
+  const deleteBookHandler = async (id) => {
+    const bookDoc = doc(db, "books", id);
+    await deleteDoc(bookDoc);
   };
   const filterChangeYear = (selectedYear) => {
     setFilteredYear(selectedYear);
@@ -28,16 +34,21 @@ function Books(props) {
 
   if (filteredBooks.length > 0) {
     bookContent = filteredBooks.map((item) => (
-      <BookItem key={item.id} item={item} onEdit={editBookHandler} />
+      <BookItem
+        key={item.id}
+        item={item}
+        onEdit={editBookHandler}
+        onDelete={deleteBookHandler}
+      />
     ));
   }
   return (
-    <Card className="books">
+    <Card className={styles.books}>
       <BookFilter selected={filteredYear} onChangeYear={filterChangeYear} />
       <BooksChart items={filteredBooks} />
       {bookContent}
     </Card>
   );
-}
+};
 
 export default Books;

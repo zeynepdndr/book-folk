@@ -1,4 +1,7 @@
 import { useState } from "react";
+import Button from "../UI/Button";
+import Card from "../UI/Card";
+import ErrorModal from "../UI/ErrorModal";
 import "./BookForm.css";
 
 const BookForm = (props) => {
@@ -9,8 +12,7 @@ const BookForm = (props) => {
   const [enteredNameError, setEnteredNameError] = useState(false);
   const [enteredPageError, setEnteredPageError] = useState(false);
   const [enteredDateError, setEnteredDateError] = useState(false);
-  const isFormValid =
-    !enteredDateError && !enteredNameError && !enteredPageError;
+  var isFormValid = !enteredDateError && !enteredNameError && !enteredPageError;
 
   const [userInput, setUserInput] = useState({
     enteredName: "",
@@ -21,6 +23,7 @@ const BookForm = (props) => {
   const nameChangeHandler = (event) => {
     //pass in a function to setState
     //it will receives snapshot of the previous state, safer way to get latest state
+    if (event.target.value.trim.lengt == 0) setEnteredNameError(true);
     setEnteredNameError(false);
     setUserInput((prevState) => {
       return { ...prevState, enteredName: event.target.value };
@@ -41,37 +44,19 @@ const BookForm = (props) => {
     // setEnteredDate(event.target.value);
   };
 
-  const checkNameError = () => {
-    //check if name is empty
-    if (userInput.enteredName.length === 0) {
+  const errorHandler = () => {
+    if (userInput.enteredName == "") {
       setEnteredNameError(true);
-    } else {
-      setEnteredNameError(false);
+      isFormValid = false;
     }
-  };
-
-  const checkDateError = () => {
-    //check if date is empty
-    if (userInput.enteredDate.length === 0) {
-      setEnteredDateError(true);
-    } else {
-      setEnteredDateError(false);
-    }
-  };
-
-  const checkPageError = () => {
-    //check if page is empty
-    if (userInput.enteredPage.length === 0) {
+    if (userInput.enteredPage == "") {
       setEnteredPageError(true);
-    } else {
-      setEnteredPageError(false);
+      isFormValid = false;
     }
-  };
-
-  const errorHandler = (event) => {
-    checkNameError();
-    checkDateError();
-    checkPageError();
+    if (userInput.enteredDate == "") {
+      setEnteredDateError(true);
+      isFormValid = false;
+    }
   };
 
   const submitHandler = (event) => {
@@ -94,50 +79,51 @@ const BookForm = (props) => {
   };
 
   return (
-    <form onSubmit={submitHandler}>
-      <div className="new-book__controls">
-        <div
-          className={`new-book__control ${enteredNameError ? "invalid" : ""}`}
-        >
-          <label>Book Name</label>
-          <input
-            type="text"
-            value={userInput.enteredName}
-            onChange={nameChangeHandler}
-          />
+    <>
+      <ErrorModal title="nono" message={"how can you do that"}></ErrorModal>
+      <form onSubmit={submitHandler}>
+        <div className="new-book__controls">
+          <div
+            className={`new-book__control ${enteredNameError ? "invalid" : ""}`}
+          >
+            <label htmlFor="bookName">Book Name</label>
+            <input
+              type="text"
+              value={userInput.enteredName}
+              onChange={nameChangeHandler}
+            />
+          </div>
+          <div
+            className={`new-book__control ${enteredPageError ? "invalid" : ""}`}
+          >
+            <label htmlFor="pageNumber">Page Number</label>
+            <input
+              type="number"
+              min="0"
+              step="1"
+              value={userInput.enteredPage}
+              onChange={pageChangeHandler}
+            />
+          </div>
+          <div
+            className={`new-book__control ${enteredDateError ? "invalid" : ""}`}
+          >
+            <label htmlFor="startDate">Start Date</label>
+            <input
+              type="date"
+              min="2019-01-01"
+              max="2030-01-01"
+              value={userInput.enteredDate}
+              onChange={dateChangeHandler}
+            />
+          </div>
+          <div className="new-book__actions">
+            <Button type="submit">Add Book</Button>
+            <Button onClick={props.onCancel}>Cancel</Button>
+          </div>
         </div>
-        <div
-          className={`new-book__control ${enteredPageError ? "invalid" : ""}`}
-        >
-          <label>Page Number</label>
-          <input
-            type="number"
-            min="0"
-            step="1"
-            value={userInput.enteredPage}
-            onChange={pageChangeHandler}
-          />
-        </div>
-        <div
-          className={`new-book__control ${enteredDateError ? "invalid" : ""}`}
-        >
-          <label>Start Date</label>
-          <input
-            type="date"
-            min="2019-01-01"
-            max="2030-01-01"
-            value={userInput.enteredDate}
-            onChange={dateChangeHandler}
-          />
-        </div>
-        <div className="new-book__actions">
-          <button type="submit">Add Book</button>
-          <button type="button" onClick={props.onCancel}>
-            Cancel
-          </button>
-        </div>
-      </div>
-    </form>
+      </form>
+    </>
   );
 };
 

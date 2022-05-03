@@ -1,6 +1,7 @@
 import { useState } from "react";
+import Button from "../UI/Button";
 import BookForm from "./BookForm";
-import "./NewBook.css";
+import styles from "./NewBook.module.css";
 
 const NewBooks = (props) => {
   const saveBookDataHandler = (enteredBookData) => {
@@ -18,7 +19,7 @@ const NewBooks = (props) => {
   };
 
   return (
-    <div className="new-book">
+    <div className={styles["new-book"]}>
       {isFormVisible && (
         <BookForm
           onSaveBookData={saveBookDataHandler}
@@ -26,11 +27,7 @@ const NewBooks = (props) => {
         />
       )}
       {!isFormVisible && (
-        <div className="new-book__actions">
-          <button type="button" onClick={showFormHandler}>
-            Add New Book
-          </button>
-        </div>
+        <Button onClick={showFormHandler}>Add New Book</Button>
       )}
     </div>
   );

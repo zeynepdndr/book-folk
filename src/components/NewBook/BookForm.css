@@ -27,7 +27,3 @@
 .new-book__control.invalid label {
   color: red;
 }
-
-.new-book__actions {
-  margin: 20px;
-}
