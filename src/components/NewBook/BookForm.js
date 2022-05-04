@@ -80,7 +80,13 @@ const BookForm = (props) => {
 
   return (
     <>
-      <ErrorModal title="nono" message={"how can you do that"}></ErrorModal>
+      {/* {isFormValid && (
+        <ErrorModal
+          title="nono"
+          message={"how can you do that"}
+          onConfirm={errorHandler}
+        ></ErrorModal>
+      )} */}
       <form onSubmit={submitHandler}>
         <div className="new-book__controls">
           <div
