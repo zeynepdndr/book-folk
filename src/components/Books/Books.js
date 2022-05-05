@@ -9,13 +9,14 @@ import { db } from "../../firebase-config";
 import { doc, deleteDoc } from "firebase/firestore";
 
 const Books = (props) => {
-  const [filteredYear, setFilteredYear] = useState(props.items);
+  //@TODO: Change the default filteredYear dynamically
+  const [filteredYear, setFilteredYear] = useState("2022");
 
   const editBookHandler = (item) => {
-    // setFilteredYear(selectedYear);
     console.log("edit book clicked", item);
   };
   const deleteBookHandler = async (id) => {
+    console.log("delete book clicked", id);
     const bookDoc = doc(db, "books", id);
     await deleteDoc(bookDoc);
   };

@@ -8,6 +8,14 @@ const BookItem = (props) => {
   const [date, setDate] = useState(
     firestoreTimestampToDate(props.item.startDate)
   );
+  const [isEditing, setIsEditing] = useState(false);
+
+  const editBookHandler = () => {
+    // props.onEdit(props.item);
+  };
+  const deleteBookHandler = () => {
+    props.onDelete(props.item.id);
+  };
 
   return (
     <Card className="book-item">
@@ -15,8 +23,8 @@ const BookItem = (props) => {
       <div className="book-item__description">
         <h2>{props.item.name}</h2>
         <div className="book-item__page">{props.item.page}</div>
-        <button onClick={props.onEdit(props.item)}>EDIT</button>
-        <button onClick={props.onDelete(props.item.id)}>DELETE</button>
+        <button onClick={editBookHandler}>EDIT</button>
+        <button onClick={deleteBookHandler}>DELETE</button>
       </div>
     </Card>
   );
