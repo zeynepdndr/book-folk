@@ -8,6 +8,7 @@
 
 .new-book__control label {
   font-weight: bold;
+  color: white;
   margin-bottom: 0.5rem;
   display: block;
 }
@@ -21,9 +22,9 @@
   max-width: 100%;
 }
 .new-book__control.invalid input {
-  background-color: rgb(211, 98, 98);
-  border-color: red;
+  background-color: #fbdada;
+  border-color: #f39a9d;
 }
 .new-book__control.invalid label {
-  color: red;
+  color: #f39a9d;
 }

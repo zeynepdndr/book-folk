@@ -56,18 +56,20 @@ function App() {
     <Wrapper>
       <MainHeader isAuthenticated={isLoggedIn} onLogout={logoutHandler} />
       <main>
-        {/* {!isLoggedIn && <NewBooks onAddBook={addBookHandler} />} */}
         {!isLoggedIn && <Login onLogin={loginHandler} />}
-        {isLoggedIn && <Home onLogout={logoutHandler} />}
-        {/* {error && (
-            <ErrorModal
-              title="nono"
-              message={"how can you do that"}
-              onConfirm={errorHandler}
-            ></ErrorModal>
-          )}
-          <NewBooks onAddBook={addBookHandler} />
-          <Books items={books} /> */}
+        {isLoggedIn && (
+          <>
+            {error && (
+              <ErrorModal
+                title="nono"
+                message={"how can you do that"}
+                onConfirm={errorHandler}
+              ></ErrorModal>
+            )}
+            <NewBooks onAddBook={addBookHandler} />
+            <Books items={books} />
+          </>
+        )}
       </main>
     </Wrapper>
   );

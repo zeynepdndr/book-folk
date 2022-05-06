@@ -1,3 +1,4 @@
+import Button from "../UI/Button/Button";
 import styles from "./Navigation.module.css";
 
 const Navigation = (props) => {
@@ -11,12 +12,12 @@ const Navigation = (props) => {
         )}
         {props.isLoggedIn && (
           <li>
-            <a href="/">Admin</a>
+            <a href="/">My Favorites</a>
           </li>
         )}
         {props.isLoggedIn && (
           <li>
-            <button onClick={props.onLogout}>Logout</button>
+            <Button onClick={props.onLogout}>Logout</Button>
           </li>
         )}
       </ul>
