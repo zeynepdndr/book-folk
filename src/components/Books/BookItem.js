@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import BookDate from "./BookDate";
 import "./BookItem.css";
-import Card from "../UI/Card";
+import Card from "../UI/Card/Card";
 import { firestoreTimestampToDate } from "../../utils/firestoreTimestampToDate";
 
 const BookItem = (props) => {

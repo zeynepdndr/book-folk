@@ -1,7 +1,5 @@
 import { useState } from "react";
-import Button from "../UI/Button";
-import Card from "../UI/Card";
-import ErrorModal from "../UI/ErrorModal";
+import Button from "../UI/Button/Button";
 import "./BookForm.css";
 
 const BookForm = (props) => {
@@ -23,7 +21,7 @@ const BookForm = (props) => {
   const nameChangeHandler = (event) => {
     //pass in a function to setState
     //it will receives snapshot of the previous state, safer way to get latest state
-    if (event.target.value.trim.lengt == 0) setEnteredNameError(true);
+    if (event.target.value.trim.lengt === 0) setEnteredNameError(true);
     setEnteredNameError(false);
     setUserInput((prevState) => {
       return { ...prevState, enteredName: event.target.value };
@@ -45,15 +43,15 @@ const BookForm = (props) => {
   };
 
   const errorHandler = () => {
-    if (userInput.enteredName == "") {
+    if (userInput.enteredName === "") {
       setEnteredNameError(true);
       isFormValid = false;
     }
-    if (userInput.enteredPage == "") {
+    if (userInput.enteredPage === "") {
       setEnteredPageError(true);
       isFormValid = false;
     }
-    if (userInput.enteredDate == "") {
+    if (userInput.enteredDate === "") {
       setEnteredDateError(true);
       isFormValid = false;
     }

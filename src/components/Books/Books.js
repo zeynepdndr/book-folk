@@ -1,5 +1,5 @@
 import BookItem from "./BookItem";
-import Card from "../UI/Card";
+import Card from "../UI/Card/Card";
 import styles from "./Books.module.css";
 import BookFilter from "./BookFilter";
 import { useState } from "react";
