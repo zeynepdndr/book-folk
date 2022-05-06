@@ -13,7 +13,7 @@ const ModalOverlay = (props) => {
       <div className={styles.content}>
         <p>{props.message}</p>
       </div>
-      <footer>
+      <footer className={styles.actions}>
         <Button onClick={props.onConfirm}>Okay</Button>
       </footer>
     </Card>

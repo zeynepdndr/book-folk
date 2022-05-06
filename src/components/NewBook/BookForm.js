@@ -10,7 +10,9 @@ const BookForm = (props) => {
   const [enteredNameError, setEnteredNameError] = useState(false);
   const [enteredPageError, setEnteredPageError] = useState(false);
   const [enteredDateError, setEnteredDateError] = useState(false);
-  var isFormValid = !enteredDateError && !enteredNameError && !enteredPageError;
+  const [isFormValid, setIsFormValid] = useState(
+    !enteredDateError && !enteredNameError && !enteredPageError
+  );
 
   const [userInput, setUserInput] = useState({
     enteredName: "",
@@ -21,8 +23,14 @@ const BookForm = (props) => {
   const nameChangeHandler = (event) => {
     //pass in a function to setState
     //it will receives snapshot of the previous state, safer way to get latest state
-    if (event.target.value.trim.lengt === 0) setEnteredNameError(true);
+    if (event.target.value.trim.length === 0) setEnteredNameError(true);
     setEnteredNameError(false);
+
+    setIsFormValid(
+      event.target.value.trim.length > 0 &&
+        !enteredDateError &&
+        !enteredPageError
+    );
 
     setUserInput((prevState) => {
       return { ...prevState, enteredName: event.target.value };
@@ -40,18 +48,22 @@ const BookForm = (props) => {
   };
 
   const errorHandler = () => {
-    if (userInput.enteredName === "") {
+    if (
+      userInput.enteredName === "" ||
+      userInput.enteredName.trim.length === 0
+    ) {
       setEnteredNameError(true);
-      isFormValid = false;
+      setIsFormValid(false);
     }
     if (userInput.enteredPage === "") {
       setEnteredPageError(true);
-      isFormValid = false;
+      setIsFormValid(false);
     }
     if (userInput.enteredDate === "") {
       setEnteredDateError(true);
-      isFormValid = false;
+      setIsFormValid(false);
     }
+    setIsFormValid(!enteredDateError && !enteredNameError && !enteredPageError);
   };
 
   const submitHandler = (event) => {

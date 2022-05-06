@@ -1,14 +1,37 @@
 import { useEffect, useState } from "react";
+import {
+  createUserWithEmailAndPassword,
+  onAuthStateChanged,
+} from "firebase/auth";
+import { auth } from "../../firebase-config";
 import Card from "../UI/Card/Card";
 import Button from "../UI/Button/Button";
 import styles from "./Login.module.css";
 
 const Login = (props) => {
+  const [user, setUser] = useState(null);
   const [enteredEmail, setEnteredEmail] = useState("");
   const [emailIsValid, setEmailIsValid] = useState();
   const [enteredPassword, setEnteredPassword] = useState("");
   const [passwordIsValid, setPasswordIsValid] = useState();
   const [formIsValid, setFormIsValid] = useState(false);
+
+  // onAuthStateChanged(auth, (currentUser) => {
+  //   setUser(currentUser);
+  // });
+
+  const register = async () => {
+    try {
+      const user = await createUserWithEmailAndPassword(
+        auth,
+        enteredEmail,
+        enteredPassword
+      );
+      console.log("User created", user);
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
 
   const emailChangeHandler = (event) => {
     setEnteredEmail(event.target.value);
@@ -27,7 +50,6 @@ const Login = (props) => {
   };
 
   const validateEmailHandler = () => {
-    console.log(enteredEmail);
     setEmailIsValid(enteredEmail.includes("@"));
   };
 
@@ -41,8 +63,7 @@ const Login = (props) => {
   };
 
   useEffect(() => {
-    validateEmailHandler();
-    validatePasswordHandler();
+    setFormIsValid(enteredPassword.length > 6 && enteredEmail.includes("@"));
   }, [enteredEmail, enteredPassword]);
 
   return (
@@ -77,9 +98,17 @@ const Login = (props) => {
           />
         </div>
         <div className={styles.actions}>
+          <Button
+            onClick={register}
+            className={styles.btn}
+            disabled={!formIsValid}
+          >
+            Register
+          </Button>
           <Button type="submit" className={styles.btn} disabled={!formIsValid}>
             Login
           </Button>
+          <h2>{auth.currentUser.email}</h2>
         </div>
       </form>
     </Card>

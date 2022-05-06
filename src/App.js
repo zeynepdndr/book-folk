@@ -61,7 +61,7 @@ function App() {
           <>
             {error && (
               <ErrorModal
-                title="nono"
+                title="OH! nono"
                 message={"how can you do that"}
                 onConfirm={errorHandler}
               ></ErrorModal>
