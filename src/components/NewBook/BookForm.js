@@ -23,23 +23,20 @@ const BookForm = (props) => {
     //it will receives snapshot of the previous state, safer way to get latest state
     if (event.target.value.trim.lengt === 0) setEnteredNameError(true);
     setEnteredNameError(false);
+
     setUserInput((prevState) => {
       return { ...prevState, enteredName: event.target.value };
     });
-    // setUserInput({ ...userInput, enteredName: event.target.value });
-    // setEnteredName(event.target.value);
   };
 
   const pageChangeHandler = (event) => {
     setEnteredPageError(false);
     setUserInput({ ...userInput, enteredPage: event.target.value });
-    // setEnteredPage(event.target.value);
   };
 
   const dateChangeHandler = (event) => {
     setEnteredDateError(false);
     setUserInput({ ...userInput, enteredDate: event.target.value });
-    // setEnteredDate(event.target.value);
   };
 
   const errorHandler = () => {
@@ -61,9 +58,7 @@ const BookForm = (props) => {
     event.preventDefault();
     errorHandler();
 
-    if (!isFormValid) {
-      return;
-    }
+    if (!isFormValid) return;
 
     const BookData = {
       id: Math.random().toString(),
@@ -74,6 +69,7 @@ const BookForm = (props) => {
 
     props.onSaveBookData(BookData);
     setUserInput({ enteredName: "", enteredPage: "", enteredDate: "" });
+    isFormValid = false;
   };
 
   return (

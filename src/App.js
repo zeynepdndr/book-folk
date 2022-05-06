@@ -12,7 +12,7 @@ import Home from "./components/Home/Home";
 function App() {
   const [books, setBooks] = useState([]);
   const [error, setError] = useState(true);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(true);
   const bookCollection = collection(db, "books");
 
   const loginHandler = () => {
@@ -36,6 +36,7 @@ function App() {
 
   const addBookHandler = async (book) => {
     await addDoc(bookCollection, book);
+    console.log("Book added", book);
     setBooks((prevBooks) => {
       return [...prevBooks, book];
     });
@@ -47,15 +48,15 @@ function App() {
 
   useEffect(() => {
     getBooks().then((books) => {
-      console.log(books);
       setBooks(books);
     });
   }, []);
 
   return (
     <Wrapper>
-      <MainHeader />
+      <MainHeader isAuthenticated={isLoggedIn} onLogout={logoutHandler} />
       <main>
+        {/* {!isLoggedIn && <NewBooks onAddBook={addBookHandler} />} */}
         {!isLoggedIn && <Login onLogin={loginHandler} />}
         {isLoggedIn && <Home onLogout={logoutHandler} />}
         {/* {error && (

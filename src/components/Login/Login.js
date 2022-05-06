@@ -1,7 +1,7 @@
+import { useEffect, useState } from "react";
 import Card from "../UI/Card/Card";
-import styles from "./Login.module.css";
 import Button from "../UI/Button/Button";
-import { useState } from "react";
+import styles from "./Login.module.css";
 
 const Login = (props) => {
   const [enteredEmail, setEnteredEmail] = useState("");
@@ -27,6 +27,7 @@ const Login = (props) => {
   };
 
   const validateEmailHandler = () => {
+    console.log(enteredEmail);
     setEmailIsValid(enteredEmail.includes("@"));
   };
 
@@ -38,6 +39,11 @@ const Login = (props) => {
     event.preventDefault();
     props.onLogin(enteredEmail, enteredPassword);
   };
+
+  useEffect(() => {
+    validateEmailHandler();
+    validatePasswordHandler();
+  }, [enteredEmail, enteredPassword]);
 
   return (
     <Card className={styles.login}>
