@@ -7,7 +7,7 @@ const Navigation = (props) => {
       <ul>
         {props.isLoggedIn && (
           <li>
-            <a href="/">Users</a>
+            <a href="/">Profile</a>
           </li>
         )}
         {props.isLoggedIn && (

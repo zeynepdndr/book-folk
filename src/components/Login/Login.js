@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import {
   createUserWithEmailAndPassword,
-  onAuthStateChanged,
+  signInWithEmailAndPassword,
 } from "firebase/auth";
 import { auth } from "../../firebase-config";
 import Card from "../UI/Card/Card";
@@ -16,10 +16,6 @@ const Login = (props) => {
   const [passwordIsValid, setPasswordIsValid] = useState();
   const [formIsValid, setFormIsValid] = useState(false);
 
-  // onAuthStateChanged(auth, (currentUser) => {
-  //   setUser(currentUser);
-  // });
-
   const register = async () => {
     try {
       const user = await createUserWithEmailAndPassword(
@@ -29,7 +25,13 @@ const Login = (props) => {
       );
       console.log("User created", user);
     } catch (error) {
-      console.log(error.message);
+      var errorCode = error.code;
+      var errorMessage = error.message;
+      if (errorCode === "auth/email-already-in-use") {
+        alert("Email already in use");
+      } else {
+        alert(errorMessage);
+      }
     }
   };
 
@@ -59,12 +61,34 @@ const Login = (props) => {
 
   const submitHandler = (event) => {
     event.preventDefault();
-    props.onLogin(enteredEmail, enteredPassword);
+    signInWithEmailAndPassword(auth, enteredEmail, enteredPassword)
+      .then((user) => {
+        console.log(user);
+        setUser(user);
+        props.onLogin();
+      })
+      .catch((error) => {
+        var errorCode = error.code;
+        var errorMessage = error.message;
+        if (errorCode === "auth/wrong-password") {
+          alert("Wrong password.");
+        } else {
+          alert(errorMessage);
+        }
+        console.log(error);
+      });
   };
 
   useEffect(() => {
     setFormIsValid(enteredPassword.length > 6 && enteredEmail.includes("@"));
   }, [enteredEmail, enteredPassword]);
+
+  useEffect(() => {
+    auth.onAuthStateChanged((currentUser) => {
+      console.log("currentUser", currentUser);
+      setUser(currentUser);
+    });
+  }, []);
 
   return (
     <Card className={styles.login}>
@@ -108,7 +132,6 @@ const Login = (props) => {
           <Button type="submit" className={styles.btn} disabled={!formIsValid}>
             Login
           </Button>
-          <h2>{auth.currentUser.email}</h2>
         </div>
       </form>
     </Card>
