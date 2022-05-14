@@ -10,11 +10,12 @@ import styles from "./Login.module.css";
 
 const emailReducer = (state, action) => {
   switch (action.type) {
-    case "INPUT_CHANGE":
+    case "USER_INPUT":
+      return { value: action.payload, isValid: action.payload.includes("@") };
+    case "INPUT_BLUR":
       return {
-        ...state,
-        value: action.payload,
-        isValid: action.payload.includes("@"),
+        value: state.value,
+        isValid: state.value.includes("@"),
       };
     default:
       return { value: "", isValid: null };
@@ -23,7 +24,7 @@ const emailReducer = (state, action) => {
 
 const Login = (props) => {
   const [user, setUser] = useState(null);
-  const [enteredEmail, setEnteredEmail] = useState("");
+  // const [enteredEmail, setEnteredEmail] = useState("");
 
   const [emailState, dispatchEmail] = useReducer(emailReducer, {
     value: "",
@@ -53,7 +54,8 @@ const Login = (props) => {
   };
 
   const emailChangeHandler = (event) => {
-    setEnteredEmail(event.target.value);
+    // setEnteredEmail(event.target.value);
+    dispatchEmail({ type: "USER_INPUT", payload: event.target.value });
     setFormIsValid(
       event.target.value.includes("@") && enteredPassword.trim().length > 0
     );
@@ -66,11 +68,8 @@ const Login = (props) => {
   };
 
   const validateEmailHandler = () => {
-    dispatchEmail({
-      type: "INPUT_CHANGE",
-      payload: enteredEmail,
-      isValid: enteredEmail.includes("@"),
-    });
+    //No need to add a value here, it is about that input lost focus
+    dispatchEmail({ type: "INPUT_BLUR" });
   };
 
   const validatePasswordHandler = () => {
@@ -99,7 +98,7 @@ const Login = (props) => {
 
   useEffect(() => {
     setFormIsValid(enteredPassword.length > 6 && emailState.isValid);
-  }, [enteredEmail, enteredPassword]);
+  }, [emailState.value, enteredPassword]);
 
   useEffect(() => {
     auth.onAuthStateChanged((currentUser) => {
