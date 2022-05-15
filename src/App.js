@@ -1,32 +1,20 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import Books from "./components/Books/Books";
 import NewBooks from "./components/NewBook/NewBook";
-import { auth, db } from "./firebase-config";
+import { db } from "./firebase-config";
 import { collection, getDocs, addDoc } from "firebase/firestore";
 import ErrorModal from "./components/UI/Modal/ErrorModal";
 import Wrapper from "./components/Helpers/Wrapper";
 import MainHeader from "./components/MainHeader/MainHeader";
 import Login from "./components/Login/Login";
 import Home from "./components/Home/Home";
-import AuthContext from "./store/auth-context";
+import AuthContext, { AuthContextProvider } from "./store/auth-context";
 
 function App() {
+  const ctx = useContext(AuthContext);
   const [books, setBooks] = useState([]);
   const [error, setError] = useState(true);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const bookCollection = collection(db, "books");
-
-  const loginHandler = () => {
-    // We should of course check email and password
-    // But it's just a dummy/ demo anyways
-
-    setIsLoggedIn(true);
-  };
-
-  const logoutHandler = async () => {
-    await auth.signOut();
-    setIsLoggedIn(false);
-  };
 
   const getBooks = async () => {
     const bookSnapshot = await getDocs(bookCollection);
@@ -57,25 +45,23 @@ function App() {
 
   return (
     <Wrapper>
-      <AuthContext.Provider value={{ isLoggedIn: isLoggedIn }}>
-        <MainHeader isAuthenticated={isLoggedIn} onLogout={logoutHandler} />
-        <main>
-          {!isLoggedIn && <Login onLogin={loginHandler} />}
-          {isLoggedIn && (
-            <>
-              {error && (
-                <ErrorModal
-                  title="OH! nono"
-                  message={"how can you do that"}
-                  onConfirm={errorHandler}
-                ></ErrorModal>
-              )}
-              <NewBooks onAddBook={addBookHandler} />
-              <Books items={books} />
-            </>
-          )}
-        </main>
-      </AuthContext.Provider>
+      <MainHeader />
+      <main>
+        {!ctx.isLoggedIn && <Login />}
+        {ctx.isLoggedIn && (
+          <>
+            {error && (
+              <ErrorModal
+                title="OH! nono"
+                message={"how can you do that"}
+                onConfirm={errorHandler}
+              ></ErrorModal>
+            )}
+            <NewBooks onAddBook={addBookHandler} />
+            <Books items={books} />
+          </>
+        )}
+      </main>
     </Wrapper>
   );
 }

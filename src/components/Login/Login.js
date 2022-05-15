@@ -1,8 +1,6 @@
-import { useEffect, useReducer, useState } from "react";
-import {
-  createUserWithEmailAndPassword,
-  signInWithEmailAndPassword,
-} from "firebase/auth";
+import { useContext, useEffect, useReducer, useState } from "react";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import AuthContext from "../../store/auth-context";
 import { auth } from "../../firebase-config";
 import Card from "../UI/Card/Card";
 import Button from "../UI/Button/Button";
@@ -39,8 +37,8 @@ const passwordReducer = (state, action) => {
   }
 };
 
-const Login = (props) => {
-  const [user, setUser] = useState(null);
+const Login = () => {
+  const ctx = useContext(AuthContext);
   // const [enteredEmail, setEnteredEmail] = useState("");
 
   const [emailState, dispatchEmail] = useReducer(emailReducer, {
@@ -98,22 +96,7 @@ const Login = (props) => {
 
   const submitHandler = (event) => {
     event.preventDefault();
-    signInWithEmailAndPassword(auth, emailState.value, passwordState.value)
-      .then((user) => {
-        console.log(user);
-        setUser(user);
-        props.onLogin();
-      })
-      .catch((error) => {
-        var errorCode = error.code;
-        var errorMessage = error.message;
-        if (errorCode === "auth/wrong-password") {
-          alert("Wrong password.");
-        } else {
-          alert(errorMessage);
-        }
-        console.log(error);
-      });
+    ctx.onLogin(emailState.value, passwordState.value);
   };
 
   useEffect(() => {
@@ -131,13 +114,6 @@ const Login = (props) => {
 
     return () => clearTimeout(identifier);
   }, [isEmailValid, isPasswordValid]);
-
-  useEffect(() => {
-    auth.onAuthStateChanged((currentUser) => {
-      console.log("currentUser", currentUser);
-      setUser(currentUser);
-    });
-  }, []);
 
   return (
     <Card className={styles.login}>
