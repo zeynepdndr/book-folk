@@ -76,16 +76,15 @@ const Login = (props) => {
 
   const emailChangeHandler = (event) => {
     // setEnteredEmail(event.target.value);
-    console.log("ech:", event.target.value);
     dispatchEmail({ type: "USER_INPUT", payload: event.target.value });
-    setFormIsValid(event.target.value.includes("@") && passwordState.isValid);
+    // setFormIsValid(event.target.value.includes("@") && passwordState.isValid);
   };
 
   const passwordChangeHandler = (event) => {
-    console.log("pch:", event.target.value);
-
     dispatchPassword({ type: "USER_INPUT", payload: event.target.value });
-    setFormIsValid(event.target.value.trim().length > 5 && emailState.isValid);
+
+    //not optimal solution for updating state, state update scheduling can be different. useEffect is nice solution
+    // setFormIsValid(event.target.value.trim().length > 5 && emailState.isValid);
   };
 
   const validateEmailHandler = () => {
@@ -120,6 +119,18 @@ const Login = (props) => {
   useEffect(() => {
     setFormIsValid(passwordState.isValid && emailState.isValid);
   }, [emailState.value, passwordState.value]);
+
+  const { isValid: isEmailValid } = { emailState };
+  const { isValid: isPasswordValid } = { passwordState };
+
+  //Refer to snapshot of the state. It will be run with latest state
+  useEffect(() => {
+    const identifier = setTimeout(() => {
+      setFormIsValid(isEmailValid && isPasswordValid);
+    }, 500);
+
+    return () => clearTimeout(identifier);
+  }, [isEmailValid, isPasswordValid]);
 
   useEffect(() => {
     auth.onAuthStateChanged((currentUser) => {
