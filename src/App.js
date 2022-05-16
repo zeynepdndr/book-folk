@@ -5,7 +5,7 @@ import { db } from "./firebase-config";
 import { collection, getDocs, addDoc } from "firebase/firestore";
 import ErrorModal from "./components/UI/Modal/ErrorModal";
 import Wrapper from "./components/Helpers/Wrapper";
-import MainHeader from "./components/MainHeader/MainHeader";
+import Header from "./components/Layout/Header/Header";
 import Login from "./components/Login/Login";
 import Home from "./components/Home/Home";
 import AuthContext, { AuthContextProvider } from "./store/auth-context";
@@ -45,7 +45,7 @@ function App() {
 
   return (
     <Wrapper>
-      <MainHeader />
+      <Header />
       <main>
         {!ctx.isLoggedIn && <Login />}
         {ctx.isLoggedIn && (

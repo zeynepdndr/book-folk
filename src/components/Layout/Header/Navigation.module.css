@@ -22,10 +22,7 @@
 }
 
 .nav button {
-  background: #4826b9;
-  border: 1px solid #4826b9;
   padding: 0.5rem 1.5rem;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.26);
 }
 
 .nav button:focus {

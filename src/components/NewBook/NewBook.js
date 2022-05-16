@@ -21,10 +21,13 @@ const NewBooks = (props) => {
   return (
     <div className={styles["new-book"]}>
       {isFormVisible && (
-        <BookForm
-          onSaveBookData={saveBookDataHandler}
-          onCancel={cancelAddBookHandler}
-        />
+        <>
+          <h2>Add New Book</h2>
+          <BookForm
+            onSaveBookData={saveBookDataHandler}
+            onCancel={cancelAddBookHandler}
+          />
+        </>
       )}
       {!isFormVisible && (
         <Button onClick={showFormHandler}>Add New Book</Button>

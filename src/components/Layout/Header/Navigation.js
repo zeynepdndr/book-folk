@@ -1,6 +1,7 @@
 import { useContext } from "react";
-import AuthContext from "../../store/auth-context";
-import Button from "../UI/Button/Button";
+import AuthContext from "../../../store/auth-context";
+import Button from "../../UI/Button/Button";
+import HeaderFavoriteButton from "../HeaderFavoriteButton/HeaderFavoriteButton";
 import styles from "./Navigation.module.css";
 
 const Navigation = () => {
@@ -15,7 +16,7 @@ const Navigation = () => {
         )}
         {ctx.isLoggedIn && (
           <li>
-            <a href="/">My Favorites</a>
+            <HeaderFavoriteButton />
           </li>
         )}
         {ctx.isLoggedIn && (
