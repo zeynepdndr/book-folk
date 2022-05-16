@@ -7,10 +7,10 @@ const Header = (props) => {
     <>
       <header className={styles["main-header"]}>
         <h1>Let's do</h1>
-
         <Navigation
           isLoggedIn={props.isAuthenticated}
           onLogout={props.onLogout}
+          onClick={props.onShowFavorites}
         />
       </header>
       <div className={styles["main-image"]}>

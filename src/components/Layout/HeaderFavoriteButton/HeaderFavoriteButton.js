@@ -2,9 +2,9 @@ import FavoritesIcon from "../../Favorites/FavoritesIcon";
 import Button from "../../UI/Button/Button";
 import styles from "./HeaderFavoriteButton.module.css";
 
-const HeaderFavoriteButton = () => {
+const HeaderFavoriteButton = (props) => {
   return (
-    <Button className={styles.button}>
+    <Button className={styles.button} onClick={props.onClick}>
       <span className={styles.icon}>
         <FavoritesIcon />
       </span>

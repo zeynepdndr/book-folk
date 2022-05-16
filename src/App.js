@@ -9,9 +9,11 @@ import Header from "./components/Layout/Header/Header";
 import Login from "./components/Login/Login";
 import Home from "./components/Home/Home";
 import AuthContext, { AuthContextProvider } from "./store/auth-context";
+import Favorites from "./components/Favorites/Favorites";
 
 function App() {
   const ctx = useContext(AuthContext);
+  const [favoritesIsShown, setFavoritesIsShown] = useState(false);
   const [books, setBooks] = useState([]);
   const [error, setError] = useState(true);
   const bookCollection = collection(db, "books");
@@ -37,6 +39,15 @@ function App() {
     setError(null);
   };
 
+  const showFavoritesHandler = () => {
+    setFavoritesIsShown(true);
+    console.log("clicked");
+  };
+
+  const hideFavoritesHandler = () => {
+    setFavoritesIsShown(false);
+  };
+
   useEffect(() => {
     getBooks().then((books) => {
       setBooks(books);
@@ -45,7 +56,8 @@ function App() {
 
   return (
     <Wrapper>
-      <Header />
+      {favoritesIsShown && <Favorites />}
+      <Header onShowFavorites={showFavoritesHandler} />
       <main>
         {!ctx.isLoggedIn && <Login />}
         {ctx.isLoggedIn && (

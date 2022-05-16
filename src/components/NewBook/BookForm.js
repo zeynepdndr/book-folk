@@ -25,7 +25,7 @@ const BookForm = (props) => {
     //it will receives snapshot of the previous state, safer way to get latest state
     if (event.target.value.trim.length === 0) setEnteredNameError(true);
     setEnteredNameError(false);
-
+    console.log(enteredNameError);
     setIsFormValid(
       event.target.value.trim.length > 0 &&
         !enteredDateError &&

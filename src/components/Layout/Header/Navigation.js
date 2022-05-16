@@ -4,7 +4,7 @@ import Button from "../../UI/Button/Button";
 import HeaderFavoriteButton from "../HeaderFavoriteButton/HeaderFavoriteButton";
 import styles from "./Navigation.module.css";
 
-const Navigation = () => {
+const Navigation = (props) => {
   const ctx = useContext(AuthContext);
   return (
     <nav className={styles.nav}>
@@ -16,7 +16,7 @@ const Navigation = () => {
         )}
         {ctx.isLoggedIn && (
           <li>
-            <HeaderFavoriteButton />
+            <HeaderFavoriteButton onClick={props.onClick} />
           </li>
         )}
         {ctx.isLoggedIn && (
