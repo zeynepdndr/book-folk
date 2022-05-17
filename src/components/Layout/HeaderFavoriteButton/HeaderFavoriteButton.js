@@ -7,6 +7,7 @@ import styles from "./HeaderFavoriteButton.module.css";
 const HeaderFavoriteButton = (props) => {
   const favoritesCtx = useContext(FavoritesContext);
   const numberOffavorites = favoritesCtx.items.length;
+  console.log("numberOffavorites", favoritesCtx);
 
   return (
     <Button className={styles.button} onClick={props.onClick}>

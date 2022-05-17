@@ -10,7 +10,10 @@ const favoritesReducer = (state, action) => {
     case "ADD_ITEM":
       //TODO: check if item is already in the list
       //TODO: add item which includes only id and bookName
-      return [...state, action.payload];
+      const uptadedItems = state.items.concat(action.payload);
+      console.log("state:", state);
+      console.log("uptadedItems", uptadedItems);
+      return { items: uptadedItems };
     case "REMOVE_ITEM":
       return state.filter((item) => item.id !== action.payload);
     default:
@@ -24,6 +27,7 @@ const FavoritesProvider = (props) => {
     defaultFavoritesState
   );
   const addItemToFavoritesHandler = (item) => {
+    console.log("tx", item);
     dispatchFavoritesAction({ type: "ADD_ITEM", payload: item });
   };
   const removeItemFromFavoritesHandler = (id) => {
@@ -31,7 +35,7 @@ const FavoritesProvider = (props) => {
   };
 
   const favoritesContext = {
-    items: favoritesState,
+    items: favoritesState.items,
     addItem: addItemToFavoritesHandler,
     removeItem: removeItemFromFavoritesHandler,
   };
