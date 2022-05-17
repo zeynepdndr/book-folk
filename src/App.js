@@ -7,7 +7,7 @@ import ErrorModal from "./components/UI/Modal/ErrorModal";
 import Header from "./components/Layout/Header/Header";
 import Login from "./components/Login/Login";
 import Home from "./components/Home/Home";
-import AuthContext, { AuthContextProvider } from "./store/auth-context";
+import AuthContext from "./store/auth-context";
 import Favorites from "./components/Favorites/Favorites";
 import FavoritesContextProvider from "./store/FavoritesProvider";
 import Wrapper from "./components/Helpers/Wrapper";
@@ -42,7 +42,6 @@ function App() {
 
   const showFavoritesHandler = () => {
     setFavoritesIsShown(true);
-    console.log("clicked");
   };
 
   const hideFavoritesHandler = () => {

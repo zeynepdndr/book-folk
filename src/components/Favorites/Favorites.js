@@ -1,11 +1,15 @@
+import { useContext } from "react";
+import FavoritesContext from "../../store/favorites-context";
 import ErrorModal from "../UI/Modal/ErrorModal";
+import FavoritesItem from "./FavoritesItem";
 import styles from "./Favorites.module.css";
 
 const Favorites = (props) => {
+  const favoritesCtx = useContext(FavoritesContext);
   const favoriteItems = (
-    <ul className={styles["favorite-items"]}>
-      {[{ id: "e1" }, { id: "e2" }, { id: "e3" }].map((item) => {
-        <li>{item.id}</li>;
+    <ul className={styles["favorites-items"]}>
+      {favoritesCtx.items.map((item) => {
+        return <FavoritesItem item={item} key={item.id} />;
       })}
     </ul>
   );
@@ -17,15 +21,7 @@ const Favorites = (props) => {
       onConfirm={null}
       onClose={props.onClose}
     >
-      <div>
-        <h1>HHEHEHHEEH</h1>
-        {favoriteItems}
-        <div>
-          <span>Total</span>
-          <span>5</span>
-        </div>
-        <div></div>
-      </div>
+      {favoriteItems}
     </ErrorModal>
   );
 };

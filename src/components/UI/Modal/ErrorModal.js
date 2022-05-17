@@ -11,7 +11,8 @@ const ModalOverlay = (props) => {
     <Card className={styles.modal}>
       <header className={styles.header}>{props.title}</header>
       <div className={styles.content}>
-        <p>{props.message}</p>
+        {/* <p>{props.message}</p> */}
+        {props.children}
       </div>
       <footer className={styles.actions}>
         <Button className={styles["button--alt"]} onClick={props.onClose}>
@@ -35,6 +36,7 @@ const ErrorModal = (props) => {
           message={props.message}
           onConfirm={props.onConfirm}
           onClose={props.onClose}
+          children={props.children}
         />,
         document.getElementById("overlay-root")
       )}

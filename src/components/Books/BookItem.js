@@ -21,7 +21,7 @@ const BookItem = (props) => {
   };
 
   const addToFavoritesHandler = () => {
-    favoritesCtx.addItem(props.item);
+    favoritesCtx.addItem({ id: props.item.id, bookName: props.item.name });
   };
 
   return (
