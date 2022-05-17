@@ -91,6 +91,7 @@ const BookForm = (props) => {
           title="nono"
           message={"how can you do that"}
           onConfirm={errorHandler}
+          onClose={() => {}}
         ></ErrorModal>
       )} */}
       <form onSubmit={submitHandler}>

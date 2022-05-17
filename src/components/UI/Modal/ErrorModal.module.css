@@ -41,6 +41,18 @@
   justify-content: flex-end;
 }
 
+.actions .button--alt {
+  background-color: white;
+  color: #40005d;
+}
+
+.actions button:hover,
+.actions button:active {
+  background-color: #741188;
+  border-color: #741188;
+  color: white;
+}
+
 @media (min-width: 768px) {
   .modal {
     left: calc(50% - 20rem);

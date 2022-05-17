@@ -4,12 +4,13 @@ import NewBooks from "./components/NewBook/NewBook";
 import { db } from "./firebase-config";
 import { collection, getDocs, addDoc } from "firebase/firestore";
 import ErrorModal from "./components/UI/Modal/ErrorModal";
-import Wrapper from "./components/Helpers/Wrapper";
 import Header from "./components/Layout/Header/Header";
 import Login from "./components/Login/Login";
 import Home from "./components/Home/Home";
 import AuthContext, { AuthContextProvider } from "./store/auth-context";
 import Favorites from "./components/Favorites/Favorites";
+import FavoritesContextProvider from "./store/FavoritesProvider";
+import Wrapper from "./components/Helpers/Wrapper";
 
 function App() {
   const ctx = useContext(AuthContext);
@@ -56,24 +57,27 @@ function App() {
 
   return (
     <Wrapper>
-      {favoritesIsShown && <Favorites />}
-      <Header onShowFavorites={showFavoritesHandler} />
-      <main>
-        {!ctx.isLoggedIn && <Login />}
-        {ctx.isLoggedIn && (
-          <>
-            {error && (
-              <ErrorModal
-                title="OH! nono"
-                message={"how can you do that"}
-                onConfirm={errorHandler}
-              ></ErrorModal>
-            )}
-            <NewBooks onAddBook={addBookHandler} />
-            <Books items={books} />
-          </>
-        )}
-      </main>
+      <FavoritesContextProvider>
+        {favoritesIsShown && <Favorites onClose={hideFavoritesHandler} />}
+        <Header onShowFavorites={showFavoritesHandler} />
+        <main>
+          {!ctx.isLoggedIn && <Login />}
+          {ctx.isLoggedIn && (
+            <>
+              {error && (
+                <ErrorModal
+                  title="OH! nono"
+                  message={"how can you do that"}
+                  onConfirm={errorHandler}
+                  onClose={() => {}}
+                ></ErrorModal>
+              )}
+              <NewBooks onAddBook={addBookHandler} />
+              <Books items={books} />
+            </>
+          )}
+        </main>
+      </FavoritesContextProvider>
     </Wrapper>
   );
 }

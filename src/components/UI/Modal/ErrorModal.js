@@ -14,6 +14,9 @@ const ModalOverlay = (props) => {
         <p>{props.message}</p>
       </div>
       <footer className={styles.actions}>
+        <Button className={styles["button--alt"]} onClick={props.onClose}>
+          Close
+        </Button>
         <Button onClick={props.onConfirm}>Okay</Button>
       </footer>
     </Card>
@@ -31,6 +34,7 @@ const ErrorModal = (props) => {
           title={props.title}
           message={props.message}
           onConfirm={props.onConfirm}
+          onClose={props.onClose}
         />,
         document.getElementById("overlay-root")
       )}
