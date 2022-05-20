@@ -18,7 +18,9 @@ const favoritesReducer = (state, action) => {
         return { items: uptadedItems };
       } else return state;
     case "REMOVE_ITEM":
-      return state.items.filter((item) => item.id !== action.payload);
+      return {
+        items: state.items.filter((item) => item.id !== action.payload),
+      };
     default:
       return state;
   }

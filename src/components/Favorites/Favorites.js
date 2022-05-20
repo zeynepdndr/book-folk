@@ -6,10 +6,23 @@ import styles from "./Favorites.module.css";
 
 const Favorites = (props) => {
   const favoritesCtx = useContext(FavoritesContext);
+
+  const { items, removeItem } = favoritesCtx;
+
+  const favoriteItemRemoveHandler = (id) => {
+    removeItem(id);
+  };
+
   const favoriteItems = (
     <ul className={styles["favorites-items"]}>
       {favoritesCtx.items.map((item) => {
-        return <FavoritesItem item={item} key={item.id} />;
+        return (
+          <FavoritesItem
+            item={item}
+            key={item.id}
+            onRemove={favoriteItemRemoveHandler.bind(null, item.id)}
+          />
+        );
       })}
     </ul>
   );

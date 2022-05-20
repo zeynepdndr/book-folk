@@ -24,6 +24,10 @@ const BookItem = (props) => {
     favoritesCtx.addItem({ id: props.item.id, bookName: props.item.name });
   };
 
+  const removeFromFavoritesHandler = () => {
+    favoritesCtx.removeItem(props.item.id);
+  };
+
   return (
     <Card className="book-item">
       <BookDate date={date} />

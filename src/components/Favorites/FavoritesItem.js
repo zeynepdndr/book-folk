@@ -4,7 +4,9 @@ const FavoritesItem = (props) => {
     <li key={props.item.id} className={styles["favorites-item"]}>
       <div className={styles.item}>
         <h2>{props.item.bookName}</h2>
-        <span className={styles.icon}>x</span>
+        <span className={styles.icon} onClick={props.onRemove}>
+          x
+        </span>
       </div>
     </li>
   );
