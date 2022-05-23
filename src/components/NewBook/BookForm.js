@@ -23,11 +23,12 @@ const BookForm = (props) => {
   const nameChangeHandler = (event) => {
     //pass in a function to setState
     //it will receives snapshot of the previous state, safer way to get latest state
-    if (event.target.value.trim.length === 0) setEnteredNameError(true);
-    setEnteredNameError(false);
-    console.log(enteredNameError);
+    if (event.target.value.trim().length === 0) {
+      setEnteredNameError(true);
+    } else setEnteredNameError(false);
+
     setIsFormValid(
-      event.target.value.trim.length > 0 &&
+      event.target.value.trim().length > 0 &&
         !enteredDateError &&
         !enteredPageError
     );
@@ -50,7 +51,7 @@ const BookForm = (props) => {
   const errorHandler = () => {
     if (
       userInput.enteredName === "" ||
-      userInput.enteredName.trim.length === 0
+      userInput.enteredName.trim().length === 0
     ) {
       setEnteredNameError(true);
       setIsFormValid(false);
@@ -81,7 +82,7 @@ const BookForm = (props) => {
 
     props.onSaveBookData(BookData);
     setUserInput({ enteredName: "", enteredPage: "", enteredDate: "" });
-    isFormValid = false;
+    setIsFormValid(false);
   };
 
   return (

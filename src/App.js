@@ -48,11 +48,12 @@ function App() {
     setFavoritesIsShown(false);
   };
 
-  useEffect(() => {
-    getBooks().then((books) => {
-      setBooks(books);
-    });
-  }, []);
+  // useEffect(() => {
+  //   getBooks().then((books) => {
+  //     setBooks(books);
+  //   });
+  //   console.log("ne zaman");
+  // }, []);
 
   return (
     <Wrapper>

@@ -2,7 +2,7 @@ import BookItem from "./BookItem";
 import Card from "../UI/Card/Card";
 import styles from "./Books.module.css";
 import BookFilter from "./BookFilter";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import BooksChart from "./BooksChart";
 import { firestoreTimestampToDate } from "../../utils/firestoreTimestampToDate";
 import { db } from "../../firebase-config";
@@ -11,6 +11,7 @@ import { doc, deleteDoc } from "firebase/firestore";
 const Books = (props) => {
   //TODO: Change the default filteredYear dynamically
   const [filteredYear, setFilteredYear] = useState("2022");
+  const [filteredBooks, setFilteredBooks] = useState([]);
 
   const editBookHandler = (item) => {
     console.log("edit book clicked", item);
@@ -24,14 +25,23 @@ const Books = (props) => {
     setFilteredYear(selectedYear);
   };
 
-  const filteredBooks = props.items.filter((book) => {
-    if (book.startDate) {
-      let bookYear = firestoreTimestampToDate(book.startDate).getFullYear();
-      return bookYear.toString() === filteredYear;
-    } else return false;
-  });
+  const doSmthng = () => {
+    let books = props.items.filter((book) => {
+      if (book.startDate) {
+        let bookYear = firestoreTimestampToDate(book.startDate).getFullYear();
+        return bookYear.toString() === filteredYear;
+      } else return false;
+    });
+    setFilteredBooks(books);
+  };
+
+  useEffect(() => {
+    doSmthng();
+  }, [props.items]);
 
   let bookContent = <p className="books-filter__empty">No book found!</p>;
+
+  console.log("filteredBooks", filteredBooks);
 
   if (filteredBooks.length > 0) {
     bookContent = filteredBooks.map((item) => (
@@ -43,6 +53,7 @@ const Books = (props) => {
       />
     ));
   }
+
   return (
     <Card className={styles.books}>
       <BookFilter selected={filteredYear} onChangeYear={filterChangeYear} />
