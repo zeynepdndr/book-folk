@@ -15,9 +15,6 @@ const Header = (props) => {
           onClick={props.onShowFavorites}
         />
       </header>
-      <div className={styles["main-image"]}>
-        <img src={bookImage} alt="Good friendship with books" />
-      </div>
     </>
   );
 };

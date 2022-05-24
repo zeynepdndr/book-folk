@@ -11,6 +11,7 @@ import AuthContext from "./store/auth-context";
 import Favorites from "./components/Favorites/Favorites";
 import FavoritesContextProvider from "./store/FavoritesProvider";
 import Wrapper from "./components/Helpers/Wrapper";
+import SearchBook from "./components/SearchBook/SearchBook";
 
 function App() {
   const ctx = useContext(AuthContext);
@@ -64,7 +65,7 @@ function App() {
           {!ctx.isLoggedIn && <Login />}
           {ctx.isLoggedIn && (
             <>
-              {error && (
+              {false && (
                 <ErrorModal
                   title="OH! nono"
                   message={"how can you do that"}
@@ -72,6 +73,7 @@ function App() {
                   onClose={() => {}}
                 ></ErrorModal>
               )}
+              <SearchBook />
               <NewBooks onAddBook={addBookHandler} />
               <Books items={books} />
             </>
