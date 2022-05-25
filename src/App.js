@@ -12,6 +12,7 @@ import Favorites from "./components/Favorites/Favorites";
 import FavoritesContextProvider from "./store/FavoritesProvider";
 import Wrapper from "./components/Helpers/Wrapper";
 import SearchBook from "./components/SearchBook/SearchBook";
+import Other from "./components/OthersFavorites/Other";
 
 function App() {
   const ctx = useContext(AuthContext);
@@ -58,7 +59,8 @@ function App() {
 
   return (
     <Wrapper>
-      <FavoritesContextProvider>
+      <Other />
+      {/* <FavoritesContextProvider>
         {favoritesIsShown && <Favorites onClose={hideFavoritesHandler} />}
         <Header onShowFavorites={showFavoritesHandler} />
         <main>
@@ -79,7 +81,7 @@ function App() {
             </>
           )}
         </main>
-      </FavoritesContextProvider>
+      </FavoritesContextProvider> */}
     </Wrapper>
   );
 }
