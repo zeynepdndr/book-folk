@@ -1,18 +1,10 @@
 import { useState } from "react";
 import Button from "../UI/Button/Button";
-import styles from "./SearchBook.module.css";
+import Results from "../Results/Results";
 import axios from "axios";
-import Card from "../UI/Card/Card";
+import styles from "./SearchBook.module.css";
 
 const SearchBook = (props) => {
-  const BOOK_TYPES = [
-    "programming",
-    "business",
-    "finance",
-    "health",
-    "science",
-  ];
-
   const [searchedBookName, setSearchBookName] = useState("");
   const [searchedBookType, setSearchBookType] = useState("");
   const [bookResults, setBookResults] = useState([]);
@@ -33,7 +25,7 @@ const SearchBook = (props) => {
           searchedBookName +
           "&key=" +
           apiKey +
-          "&maxResults=40"
+          "&maxResults=4"
       )
       .then((response) => {
         setBookResults(response.data.items);
@@ -54,46 +46,13 @@ const SearchBook = (props) => {
                 onChange={bookNameChangeHandler}
               />
             </div>
-            <div className={styles["search-book__control"]}>
-              <label htmlFor="bookType">Book Type</label>
-              <select
-                id="bookType"
-                value={searchedBookType}
-                onChange={setSearchBookType}
-                onBlur={setSearchBookType}
-              >
-                {BOOK_TYPES.map((type) => (
-                  <option value={type}>{type}</option>
-                ))}
-              </select>
-            </div>
             <div className="search-book__actions">
               <Button type="submit">Search</Button>
             </div>
           </div>
         </form>
       </div>
-      {bookResults.length !== 0 && (
-        <div className={styles["search-book__results"]}>
-          {bookResults.map((book) => {
-            return (
-              <Card className={styles.books} key={book.volumeInfo.title}>
-                <a href={book.volumeInfo.previewLink} target="_blank">
-                  <div>{book.volumeInfo.title}</div>
-                  <img
-                    src={
-                      book.volumeInfo.imageLinks === undefined
-                        ? ""
-                        : `${book.volumeInfo.imageLinks.thumbnail}`
-                    }
-                    alt={book.title}
-                  />
-                </a>
-              </Card>
-            );
-          })}
-        </div>
-      )}
+      <Results books={bookResults} />
     </>
   );
 };

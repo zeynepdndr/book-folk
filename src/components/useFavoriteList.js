@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react";
 
 const localCache = {};
-
-const useFavoriteList = (user) => {
+export default function useFavoriteList(user) {
   const [favoriteList, setFavoriteList] = useState([]);
   const [status, setStatus] = useState("pending");
 
@@ -24,6 +23,4 @@ const useFavoriteList = (user) => {
     } else requestFavoriteList();
   }, []);
   return { favoriteList, status };
-};
-
-export default useFavoriteList;
+}

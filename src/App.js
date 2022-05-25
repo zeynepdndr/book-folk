@@ -48,7 +48,6 @@ function App() {
 
   useEffect(() => {
     getBooks();
-    console.log("ne zaman");
   }, []);
 
   return (
