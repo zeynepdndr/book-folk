@@ -5,8 +5,7 @@ import BookFilter from "./BookFilter";
 import { useEffect, useState } from "react";
 import BooksChart from "./BooksChart";
 import { firestoreTimestampToDate } from "../../utils/firestoreTimestampToDate";
-import { db } from "../../firebase-config";
-import { doc, deleteDoc } from "firebase/firestore";
+import BooksService from "../../services/books.service";
 
 const Books = (props) => {
   //TODO: Change the default filteredYear dynamically
@@ -18,26 +17,27 @@ const Books = (props) => {
   };
   const deleteBookHandler = async (id) => {
     console.log("delete book clicked", id);
-    const bookDoc = doc(db, "books", id);
-    await deleteDoc(bookDoc);
+    BooksService.delete(id);
+    filterBooks();
   };
   const filterChangeYear = (selectedYear) => {
     setFilteredYear(selectedYear);
   };
 
-  const doSmthng = () => {
+  const filterBooks = () => {
     let books = props.items.filter((book) => {
       if (book.startDate) {
         let bookYear = firestoreTimestampToDate(book.startDate).getFullYear();
         return bookYear.toString() === filteredYear;
       } else return false;
     });
+    console.log("books", books);
     setFilteredBooks(books);
   };
 
   useEffect(() => {
-    doSmthng();
-  }, [props.items]);
+    filterBooks();
+  }, [filteredYear]);
 
   let bookContent = <p className="books-filter__empty">No book found!</p>;
 

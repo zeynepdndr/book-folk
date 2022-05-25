@@ -1,5 +1,11 @@
 import { db } from "../firebase-config";
-import { getDoc, addDoc, deleteDoc, doc } from "firebase/firestore";
+import {
+  getDoc,
+  deleteDoc,
+  doc,
+  updateDoc,
+  arrayUnion,
+} from "firebase/firestore";
 
 class UserFavoritesService {
   getUserFavorites = async (userId) => {
@@ -11,10 +17,7 @@ class UserFavoritesService {
 
   add = async (userId, favoriteItem) => {
     const docRef = doc(db, "users", userId);
-    const docSnap = await getDoc(docRef);
-    docSnap.data().favorites.push(favoriteItem);
-    console.log("favoriteItem", docSnap.data().favorites.push(favoriteItem));
-    return docSnap.data().favorites;
+    updateDoc(docRef, { favorites: arrayUnion(favoriteItem) });
   };
 
   delete = async (id) => {
