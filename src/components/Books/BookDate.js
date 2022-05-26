@@ -8,7 +8,7 @@ const BookDate = (props) => {
   return (
     <div className="book-date">
       <div className="book-date__month">{month}</div>
-      <div className="book-date__year">{year}</div>
+      <div className="book-date__year">{year},</div>
       <div className="book-date__day">{day}</div>
     </div>
   );

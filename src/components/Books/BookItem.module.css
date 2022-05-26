@@ -25,6 +25,14 @@
   color: white;
 }
 
+.book-item__cover {
+  display: flex;
+  width: 5.5rem;
+  height: 6.5rem;
+  border: 5px solid #ececec;
+  border-radius: 9px;
+}
+
 .book-item__page {
   font-size: 1rem;
   font-weight: bold;
@@ -33,6 +41,10 @@
   border: 1px solid white;
   padding: 0.5rem;
   border-radius: 12px;
+}
+.book-item__operation {
+  display: flex;
+  flex-direction: column;
 }
 
 @media (min-width: 580px) {

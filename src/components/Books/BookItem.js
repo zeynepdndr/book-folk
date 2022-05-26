@@ -1,9 +1,10 @@
 import React, { useContext, useState } from "react";
 import BookDate from "./BookDate";
-import "./BookItem.css";
 import Card from "../UI/Card/Card";
 import { firestoreTimestampToDate } from "../../utils/firestoreTimestampToDate";
 import FavoritesContext from "../../store/favorites-context";
+import styles from "./BookItem.module.css";
+import noCover from "../../assets/no-cover.jpg";
 
 const BookItem = (props) => {
   const favoritesCtx = useContext(FavoritesContext);
@@ -29,15 +30,22 @@ const BookItem = (props) => {
   };
 
   return (
-    <Card className="book-item">
-      <BookDate date={date} />
-      <div className="book-item__description">
+    <Card className={styles["book-item"]}>
+      <img
+        src={noCover}
+        alt={props.item.name}
+        className={styles["book-item__cover"]}
+      />
+      <div className={styles["book-item__description"]}>
         <h2>{props.item.name}</h2>
-        <div className="book-item__page">{props.item.page}</div>
-        <button onClick={editBookHandler}>EDIT</button>
-        <button onClick={deleteBookHandler}>DELETE</button>
-        <button onClick={addToFavoritesHandler}>FAVORITE</button>
+        <div className={styles["book-item__page"]}>{props.item.page}</div>
+        <div className={styles["book-item__operation"]}>
+          <button onClick={editBookHandler}>EDIT</button>
+          <button onClick={deleteBookHandler}>DELETE</button>
+          <button onClick={addToFavoritesHandler}>FAVORITE</button>
+        </div>
       </div>
+      <BookDate date={date} />
     </Card>
   );
 };
