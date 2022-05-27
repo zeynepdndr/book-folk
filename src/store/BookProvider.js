@@ -8,8 +8,10 @@ const defaultBookState = {
 const bookReducer = (state, action) => {
   switch (action.type) {
     case "GET_ALL":
-      return { items: state.items.concat(action.payload) };
+      console.log("GET_ALL", action.payload);
+      return { items: action.payload };
     case "ADD_ITEM":
+      console.log("ADD_ITEM", action.payload);
       const existingFavoritesItemIndex = state.items.findIndex(
         (item) => item.id === action.payload.id
       );
@@ -33,8 +35,10 @@ const BookProvider = (props) => {
     bookReducer,
     defaultBookState
   );
-  const getAllBooksHandler = () => {
-    dispatchBookAction({ type: "GET_ALL" });
+  const getAllBooksHandler = (items) => {
+    console.log("getAllBooksHandler", items);
+
+    dispatchBookAction({ type: "GET_ALL", payload: items });
   };
   const addItemToBookHandler = (item) => {
     dispatchBookAction({ type: "ADD_ITEM", payload: item });
@@ -50,6 +54,7 @@ const BookProvider = (props) => {
     removeItem: removeItemFromBookHandler,
   };
 
+  console.log("items", bookState.items);
   return (
     <BookContext.Provider value={bookContext}>
       {props.children}

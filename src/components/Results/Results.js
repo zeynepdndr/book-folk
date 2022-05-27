@@ -7,7 +7,7 @@ const Results = ({ books }) => {
   const bookCtx = useContext(BookContext);
 
   const readListAddHandler = () => {
-    bookCtx.addItem({ id: books.id, bookName: books.name });
+    bookCtx.addItem({ id: "book.id", bookName: "books.name" });
   };
 
   return (

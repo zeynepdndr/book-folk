@@ -1,4 +1,5 @@
 import { useContext } from "react";
+import { Link } from "react-router-dom";
 import AuthContext from "../../../store/auth-context";
 import Button from "../../UI/Button/Button";
 import HeaderFavoriteButton from "../HeaderFavoriteButton/HeaderFavoriteButton";
@@ -9,22 +10,29 @@ const Navigation = (props) => {
   return (
     <nav className={styles.nav}>
       <ul>
+        <li>
+          <Link to={"/popular"}>Popular</Link>
+        </li>
+        <li>
+          <Link to={"/popular"}>Latest</Link>
+        </li>
+        <li className={styles.title}>
+          <Link to={"/"}>Bookers</Link>
+        </li>
         {ctx.isLoggedIn && (
-          <li>
-            <a href="/">Profile</a>
-          </li>
-        )}
-        {ctx.isLoggedIn && (
-          <li>
-            <HeaderFavoriteButton onClick={props.onClick} />
-          </li>
-        )}
-        {ctx.isLoggedIn && (
-          <li>
-            <Button className={styles.logout} onClick={ctx.onLogout}>
-              Logout
-            </Button>
-          </li>
+          <>
+            <li>
+              <Link to={"/profile"}>Profile</Link>
+            </li>
+            <li>
+              <HeaderFavoriteButton onClick={props.onClick} />
+            </li>
+            <li>
+              <Button className={styles.logout} onClick={ctx.onLogout}>
+                Logout
+              </Button>
+            </li>
+          </>
         )}
       </ul>
     </nav>
