@@ -8,10 +8,8 @@ const defaultBookState = {
 const bookReducer = (state, action) => {
   switch (action.type) {
     case "GET_ALL":
-      console.log("GET_ALL", action.payload);
       return { items: action.payload };
     case "ADD_ITEM":
-      console.log("ADD_ITEM", action.payload);
       const existingFavoritesItemIndex = state.items.findIndex(
         (item) => item.id === action.payload.id
       );

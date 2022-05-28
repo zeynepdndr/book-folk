@@ -8,8 +8,10 @@ import { firestoreTimestampToDate } from "../../utils/firestoreTimestampToDate";
 import BooksService from "../../services/books.service";
 
 const Books = (props) => {
+  console.log("how many");
   //TODO: Change the default filteredYear dynamically
-  const [filteredYear, setFilteredYear] = useState("2022");
+  const currentYear = new Date().getFullYear();
+  const [filteredYear, setFilteredYear] = useState(currentYear);
   const [filteredBooks, setFilteredBooks] = useState([]);
 
   const editBookHandler = (item) => {
@@ -31,13 +33,12 @@ const Books = (props) => {
         return bookYear.toString() === filteredYear;
       } else return false;
     });
-    console.log("books", books);
     setFilteredBooks(books);
   };
 
   useEffect(() => {
     filterBooks();
-  }, [filteredYear]);
+  }, [filteredYear, props.items]);
 
   let bookContent = <p className="books-filter__empty">No book found!</p>;
 

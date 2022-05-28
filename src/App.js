@@ -26,7 +26,7 @@ function App() {
 
   const getBooks = async () => {
     BooksService.getAll().then((books) => {
-      bookCtx.getAll(books);
+      bookCtx.items = books;
       setBooks(books);
     });
   };
@@ -37,6 +37,7 @@ function App() {
       setBooks((prevBooks) => {
         return [...prevBooks, book];
       });
+      getBooks();
     });
   };
 
@@ -56,12 +57,16 @@ function App() {
     getBooks();
   }, []);
 
+  useEffect(() => {
+    console.log("books. in useEffect");
+  }, [books]);
+
   return (
     <Wrapper>
       {/* <Other /> */}
-      <BrowserRouter>
-        {/* {error && <ErrorModal onClose={errorHandler} />} */}
-        <FavoritesContextProvider>
+      <FavoritesContextProvider>
+        <BrowserRouter>
+          {/* {error && <ErrorModal onClose={errorHandler} />} */}
           {favoritesIsShown && <Favorites onClose={hideFavoritesHandler} />}
           <Header onShowFavorites={showFavoritesHandler} />
           <main>
@@ -82,18 +87,18 @@ function App() {
               </>
             )}
           </main>
-        </FavoritesContextProvider>
-        <Routes>
-          {/* <Route path="/" element={<App />} /> */}
-          {/* <Route index element={<Home />} /> */}
-          <Route path="popular" element={<Popular />} />
-          <Route path="profile" element={<Profile />} />
-          {/* Using path="*"" means "match anything", so this route
+          <Routes>
+            {/* <Route path="/" element={<App />} /> */}
+            {/* <Route index element={<Home />} /> */}
+            <Route path="popular" element={<Popular />} />
+            <Route path="profile" element={<Profile />} />
+            {/* Using path="*"" means "match anything", so this route
                 acts like a catch-all for URLs that we don't have explicit
                 routes for. */}
-          {/* <Route path="*" element={<NoMatch />} /> */}
-        </Routes>
-      </BrowserRouter>
+            {/* <Route path="*" element={<NoMatch />} /> */}
+          </Routes>
+        </BrowserRouter>
+      </FavoritesContextProvider>
     </Wrapper>
   );
 }
