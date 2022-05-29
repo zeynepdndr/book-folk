@@ -7,8 +7,6 @@ import styles from "./MainNavigation.module.css";
 
 const MainNavigation = (props) => {
   const ctx = useContext(AuthContext);
-  // const { user } = ctx;
-  // console.log("user", user);
 
   return (
     <header>

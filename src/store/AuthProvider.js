@@ -6,7 +6,6 @@ import { auth } from "../firebase-config";
 export const AuthProvider = (props) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [user, setUser] = useState(null);
-  console.log("user", user);
 
   const loginHandler = (email, password) => {
     signInWithEmailAndPassword(auth, email, password)

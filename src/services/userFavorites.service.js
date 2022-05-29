@@ -11,7 +11,6 @@ class UserFavoritesService {
   getUserFavorites = async (userId) => {
     const docRef = doc(db, "users", "8QAS9NengKoPkbwSqP1a");
     const docSnap = await getDoc(docRef);
-    console.log("favoritesSnapshot", docSnap.data());
     return docSnap;
   };
 

@@ -29,7 +29,6 @@ const SearchBook = (props) => {
       )
       .then((response) => {
         setBookResults(response.data.items);
-        console.log(response.data.items);
       });
   };
 

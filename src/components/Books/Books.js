@@ -48,9 +48,7 @@ const Books = () => {
     getBooks();
   }, []);
 
-  useEffect(() => {
-    console.log("books. in useEffect");
-  }, [books]);
+  useEffect(() => {}, [books]);
 
   return (
     <>

@@ -34,8 +34,6 @@ const BookProvider = (props) => {
     defaultBookState
   );
   const getAllBooksHandler = (items) => {
-    console.log("getAllBooksHandler", items);
-
     dispatchBookAction({ type: "GET_ALL", payload: items });
   };
   const addItemToBookHandler = (item) => {
@@ -52,7 +50,6 @@ const BookProvider = (props) => {
     removeItem: removeItemFromBookHandler,
   };
 
-  console.log("items", bookState.items);
   return (
     <BookContext.Provider value={bookContext}>
       {props.children}
