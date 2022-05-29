@@ -3,6 +3,7 @@ import FavoritesContext from "./favorites-context";
 
 const defaultFavoritesState = {
   items: [],
+  totalItems: 0,
 };
 
 const favoritesReducer = (state, action) => {

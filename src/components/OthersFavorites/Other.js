@@ -11,12 +11,9 @@ const Other = () => {
     });
   };
   const favoritesAddHandler = () => {
-    UserFavoritesService.add("8QAS9NengKoPkbwSqP1a", "şişi").then((data) => {
-      console.log("data", data);
-    });
+    UserFavoritesService.add("8QAS9NengKoPkbwSqP1a", "şişi").then((data) => {});
   };
 
-  console.log("Other", favoriteList);
   return (
     <>
       <button onClick={favoritesGetHandler}>GetFavorites</button>

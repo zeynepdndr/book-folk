@@ -11,6 +11,7 @@ html {
   background-position: right center;
   background-attachment: scroll;
   padding: 18rem 0;
+  height: 100%;
 }
 
 body {

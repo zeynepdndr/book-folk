@@ -7,6 +7,9 @@ import styles from "./Navigation.module.css";
 
 const Navigation = (props) => {
   const ctx = useContext(AuthContext);
+  // const { user } = ctx;
+  // console.log("user", user);
+
   return (
     <nav className={styles.nav}>
       <ul>

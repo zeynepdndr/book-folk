@@ -1,66 +1,76 @@
-import BookItem from "./BookItem";
-import Card from "../UI/Card/Card";
-import styles from "./Books.module.css";
-import BookFilter from "./BookFilter";
-import { useEffect, useState } from "react";
-import BooksChart from "./BooksChart";
-import { firestoreTimestampToDate } from "../../utils/firestoreTimestampToDate";
+import { useContext, useEffect, useState } from "react";
+import AuthContext from "../../store/auth-context";
+import BookContext from "../../store/book-context";
 import BooksService from "../../services/books.service";
+import Login from "../Login/Login";
+import ErrorModal from "../UI/Modal/ErrorModal";
+import SearchBook from "../SearchBook/SearchBook";
+import NewBooks from "../NewBook/NewBook";
+import BookList from "./BookList";
 
-const Books = (props) => {
-  console.log("how many");
-  //TODO: Change the default filteredYear dynamically
-  const currentYear = new Date().getFullYear();
-  const [filteredYear, setFilteredYear] = useState(currentYear);
-  const [filteredBooks, setFilteredBooks] = useState([]);
+const Books = () => {
+  const authCtx = useContext(AuthContext);
+  const bookCtx = useContext(BookContext);
+  const [favoritesIsShown, setFavoritesIsShown] = useState(false);
+  const [books, setBooks] = useState([]);
+  const [error, setError] = useState(true);
 
-  const editBookHandler = (item) => {
-    console.log("edit book clicked", item);
-  };
-  const deleteBookHandler = async (id) => {
-    console.log("delete book clicked", id);
-    BooksService.delete(id);
-    filterBooks();
-  };
-  const filterChangeYear = (selectedYear) => {
-    setFilteredYear(selectedYear);
-  };
-
-  const filterBooks = () => {
-    let books = props.items.filter((book) => {
-      if (book.startDate) {
-        let bookYear = firestoreTimestampToDate(book.startDate).getFullYear();
-        return bookYear.toString() === filteredYear;
-      } else return false;
+  const getBooks = async () => {
+    BooksService.getAll().then((books) => {
+      bookCtx.items = books;
+      setBooks(books);
     });
-    setFilteredBooks(books);
+  };
+
+  const addBookHandler = async (book) => {
+    BooksService.add(book).then(() => {
+      console.log("Book added", book);
+      setBooks((prevBooks) => {
+        return [...prevBooks, book];
+      });
+      getBooks();
+    });
+  };
+
+  const errorHandler = () => {
+    setError(null);
+  };
+
+  const showFavoritesHandler = () => {
+    setFavoritesIsShown(true);
+  };
+
+  const hideFavoritesHandler = () => {
+    setFavoritesIsShown(false);
   };
 
   useEffect(() => {
-    filterBooks();
-  }, [filteredYear, props.items]);
+    getBooks();
+  }, []);
 
-  let bookContent = <p className="books-filter__empty">No book found!</p>;
-
-  console.log("filteredBooks", filteredBooks);
-
-  if (filteredBooks.length > 0) {
-    bookContent = filteredBooks.map((item) => (
-      <BookItem
-        key={item.id}
-        item={item}
-        onEdit={editBookHandler}
-        onDelete={deleteBookHandler}
-      />
-    ));
-  }
+  useEffect(() => {
+    console.log("books. in useEffect");
+  }, [books]);
 
   return (
-    <Card className={styles.books}>
-      <BookFilter selected={filteredYear} onChangeYear={filterChangeYear} />
-      <BooksChart items={filteredBooks} />
-      {bookContent}
-    </Card>
+    <>
+      {!authCtx.isLoggedIn && <Login />}
+      {authCtx.isLoggedIn && (
+        <>
+          {false && (
+            <ErrorModal
+              title="OH! nono"
+              message={"how can you do that"}
+              onConfirm={errorHandler}
+              onClose={() => {}}
+            ></ErrorModal>
+          )}
+          <SearchBook />
+          <NewBooks onAddBook={addBookHandler} />
+          <BookList items={books} />
+        </>
+      )}
+    </>
   );
 };
 
