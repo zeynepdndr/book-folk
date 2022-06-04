@@ -11,6 +11,8 @@ const SearchBook = (props) => {
   const [apiKey, setApiKey] = useState(
     "AIzaSyCmm0WCA2mODCuXb0qtDNMdq3fBnidiG80"
   );
+  const [isLoading, setIsLoading] = useState(false);
+  const [isError, setIsError] = useState(null);
 
   const bookNameChangeHandler = (event) => {
     setSearchBookName(event.target.value);
@@ -18,7 +20,8 @@ const SearchBook = (props) => {
 
   const submitHandler = (event) => {
     event.preventDefault();
-
+    setIsLoading(true);
+    setIsError(null);
     axios
       .get(
         "https://www.googleapis.com/books/v1/volumes?q=" +
@@ -29,8 +32,27 @@ const SearchBook = (props) => {
       )
       .then((response) => {
         setBookResults(response.data.items);
+        setIsLoading(false);
+      })
+      .catch((error) => {
+        setIsError(error);
       });
+    setIsLoading(false);
   };
+
+  let content = <div>No books found!</div>;
+
+  if (bookResults.length > 0) {
+    content = <Results books={bookResults} />;
+  }
+
+  if (isError) {
+    content = <p>Something went wrong!</p>;
+  }
+
+  if (isLoading) {
+    content = <p>Loading...</p>;
+  }
 
   return (
     <>
@@ -51,7 +73,7 @@ const SearchBook = (props) => {
           </div>
         </form>
       </div>
-      <Results books={bookResults} />
+      <div className={styles["search-book__results"]}>{content}</div>
     </>
   );
 };

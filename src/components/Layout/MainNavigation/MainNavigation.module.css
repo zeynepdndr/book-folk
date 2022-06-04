@@ -12,10 +12,17 @@ header {
   z-index: 999;
 }
 
-.nav {
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 5rem;
+  justify-content: space-between;
+  padding: 0 1rem;
+  z-index: 999;
 }
 
-.logo {
+a {
   text-decoration: none;
   font-size: 2rem;
   color: white;
@@ -31,7 +38,7 @@ header {
 }
 
 .nav li {
-  margin-left: 3rem;
+  margin-right: 3rem;
 }
 
 .nav a {
