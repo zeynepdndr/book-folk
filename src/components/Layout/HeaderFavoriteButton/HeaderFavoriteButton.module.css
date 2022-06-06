@@ -1,31 +1,42 @@
 .button {
+  padding: 1rem 0.4rem;
   display: flex;
-  align-items: center;
+  font-size: 1.25rem;
+  align-items: baseline;
   border: none;
-}
-
-.button:hover,
-.button:active {
-  background-color: #c3b4f3;
+  width: max-content;
 }
 
 .icon {
-  width: 1.35rem;
-  height: 1.35rem;
-  margin-right: 0.5rem;
+  width: 1.8rem;
+  height: 1.8rem;
+  margin-right: 0.2rem;
+  margin-top: auto;
 }
-
+.text {
+  color: #fcb8d2;
+  font-weight: 300;
+}
 .badge {
-  background-color: #c3b4f3;
-  padding: 0.1rem 0.7rem;
+  background-color: #fcb8d2;
+  color: #77002e;
+  padding: 0.1rem 0.4rem;
   border-radius: 25px;
   margin-left: 8px;
   font-weight: bold;
 }
 
+.button:hover .text,
+.button:active .text {
+  background: #fcb8d2;
+  border-color: #fcb8d2;
+  color: #77002e;
+}
 .button:hover .badge,
 .button:active .badge {
-  background-color: #7817b9;
+  background: #77002e;
+  border-color: #77002e;
+  color: #fcb8d2;
 }
 
 .bump {

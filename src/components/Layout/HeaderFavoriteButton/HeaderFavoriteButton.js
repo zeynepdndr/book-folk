@@ -13,7 +13,7 @@ const HeaderFavoriteButton = (props) => {
       <span className={styles.icon}>
         <FavoritesIcon />
       </span>
-      <span>My Favorites</span>
+      <span className={styles.text}>My Favorites</span>
       <span className={styles.badge}>{numberOffavorites}</span>
     </Button>
   );
