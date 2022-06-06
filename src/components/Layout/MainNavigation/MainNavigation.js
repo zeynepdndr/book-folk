@@ -25,7 +25,8 @@ const MainNavigation = (props) => {
       </div>
       <div className={styles.logo}>
         <Link to={"/"}>
-          <img src={bookersLogo} alt="Bookers" />
+          {/* <img src={bookersLogo} alt="Bookers" /> */}
+          Bookers
         </Link>
       </div>
       <div className={styles["header-right"]}>

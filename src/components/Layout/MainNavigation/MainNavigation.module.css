@@ -18,7 +18,18 @@ header {
   display: flex;
 }
 .logo {
-  width: 10%;
+  width: 19%;
+  text-decoration: none;
+  color: white;
+  font-weight: 300;
+}
+
+.logo a {
+  font-family: fangsong;
+  font-size: 3.5rem;
+  text-decoration: none;
+  color: white;
+  font-weight: 700;
 }
 
 a {
