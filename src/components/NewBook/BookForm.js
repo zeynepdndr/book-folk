@@ -1,4 +1,5 @@
 import { useState } from "react";
+import TabsButton from "../UI/TabsButton/TabsButton";
 import Button from "../UI/Button/Button";
 import "./BookForm.css";
 
@@ -95,6 +96,7 @@ const BookForm = (props) => {
           onClose={() => {}}
         ></ErrorModal>
       )} */}
+      <TabsButton />
       <form onSubmit={submitHandler}>
         <div className="new-book__controls">
           <div

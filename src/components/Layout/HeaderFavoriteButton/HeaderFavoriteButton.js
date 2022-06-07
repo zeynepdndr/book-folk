@@ -10,9 +10,9 @@ const HeaderFavoriteButton = (props) => {
 
   return (
     <Button className={styles.button} onClick={props.onClick}>
-      <span className={styles.icon}>
+      {/* <span className={styles.icon}>
         <FavoritesIcon />
-      </span>
+      </span> */}
       <span className={styles.text}>My Favorites</span>
       <span className={styles.badge}>{numberOffavorites}</span>
     </Button>
