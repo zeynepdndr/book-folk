@@ -2,12 +2,20 @@ import * as React from "react";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Box from "@mui/material/Box";
+import SearchBook from "../../SearchBook/SearchBook";
+import BookForm from "../../NewBook/BookForm";
+
+function TabPanel(props) {
+  const { children, value, index } = props;
+  return <div>{value === index && <dib>{children}</dib>}</div>;
+}
 
 const TabsButton = (props) => {
-  const [value, setValue] = React.useState(0);
+  const [selectedTab, setSelectedTab] = React.useState(0);
 
   const handleChange = (event, newValue) => {
-    setValue(newValue);
+    setSelectedTab(newValue);
+    console.log(newValue);
   };
 
   return (
@@ -19,7 +27,7 @@ const TabsButton = (props) => {
       }}
     >
       <Tabs
-        value={value}
+        value={selectedTab}
         onChange={handleChange}
         variant="scrollable"
         aria-label="secondary tabs example"
@@ -59,6 +67,13 @@ const TabsButton = (props) => {
         <Tab label="Search Book" />
         <Tab label="Add Book" />
       </Tabs>
+      {selectedTab === 0 && <SearchBook />}
+      {selectedTab === 1 && (
+        <BookForm
+          onSaveBookData={props.saveBookDataHandler}
+          onCancel={props.cancelAddBookHandler}
+        />
+      )}
     </Box>
   );
 };

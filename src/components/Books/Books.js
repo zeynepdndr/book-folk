@@ -4,7 +4,6 @@ import BookContext from "../../store/book-context";
 import BooksService from "../../services/books.service";
 import Login from "../Login/Login";
 import ErrorModal from "../UI/Modal/ErrorModal";
-import SearchBook from "../SearchBook/SearchBook";
 import NewBooks from "../NewBook/NewBook";
 import BookList from "./BookList";
 
@@ -63,7 +62,6 @@ const Books = () => {
               onClose={() => {}}
             ></ErrorModal>
           )}
-          <SearchBook />
           <NewBooks onAddBook={addBookHandler} />
           <BookList items={books} />
         </>

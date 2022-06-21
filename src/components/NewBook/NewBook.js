@@ -1,5 +1,6 @@
 import { useState } from "react";
 import Button from "../UI/Button/Button";
+import TabsButton from "../UI/TabsButton/TabsButton";
 import BookForm from "./BookForm";
 import styles from "./NewBook.module.css";
 
@@ -23,7 +24,7 @@ const NewBooks = (props) => {
       {isFormVisible && (
         <>
           <h2>Add New Book</h2>
-          <BookForm
+          <TabsButton
             onSaveBookData={saveBookDataHandler}
             onCancel={cancelAddBookHandler}
           />

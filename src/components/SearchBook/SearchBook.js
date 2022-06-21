@@ -6,7 +6,6 @@ import styles from "./SearchBook.module.css";
 
 const SearchBook = (props) => {
   const [searchedBookName, setSearchBookName] = useState("");
-  const [searchedBookType, setSearchBookType] = useState("");
   const [bookResults, setBookResults] = useState([]);
   const [apiKey, setApiKey] = useState(
     "AIzaSyCmm0WCA2mODCuXb0qtDNMdq3fBnidiG80"
