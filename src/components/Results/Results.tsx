@@ -2,12 +2,17 @@ import { useContext } from "react";
 import Card from "../UI/Card/Card";
 import BookContext from "../../store/book-context";
 import styles from "./Results.module.css";
+import FavoritesContext from "../../store/favorites-context";
 
 const Results = ({ books }) => {
   const bookCtx = useContext(BookContext);
+  const favoritesCtx = useContext(FavoritesContext);
 
   const readListAddHandler = () => {
     bookCtx.addItem({ id: "book.id", bookName: "books.name" });
+  };
+  const favoritesListAddHandler = () => {
+    favoritesCtx.addItem({ id: "book.id", bookName: "books.name" });
   };
 
   return (
@@ -28,7 +33,9 @@ const Results = ({ books }) => {
                     alt={book.title}
                   />
                 </a>
-                <button>ADD TO FAVORITES</button>
+                <button onClick={favoritesListAddHandler}>
+                  ADD TO FAVORITES
+                </button>
                 <button onClick={readListAddHandler}>ADD TO READ </button>
               </Card>
             </>

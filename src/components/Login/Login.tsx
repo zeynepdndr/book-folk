@@ -1,7 +1,5 @@
 import { useContext, useEffect, useReducer, useState } from "react";
-import { createUserWithEmailAndPassword } from "firebase/auth";
 import AuthContext from "../../store/auth-context";
-import { auth } from "../../firebase-config";
 import Input from "../UI/Input/Input";
 import Card from "../UI/Card/Card";
 import Button from "../UI/Button/Button";
@@ -54,23 +52,8 @@ const Login = () => {
 
   const [formIsValid, setFormIsValid] = useState(false);
 
-  const register = async () => {
-    try {
-      const user = await createUserWithEmailAndPassword(
-        auth,
-        emailState.value,
-        passwordState.value
-      );
-      console.log("User created", user);
-    } catch (error) {
-      var errorCode = error.code;
-      var errorMessage = error.message;
-      if (errorCode === "auth/email-already-in-use") {
-        alert("Email already in use");
-      } else {
-        alert(errorMessage);
-      }
-    }
+  const signup = async () => {
+    ctx.onSignup(emailState.value, passwordState.value);
   };
 
   const emailChangeHandler = (event) => {
@@ -139,7 +122,7 @@ const Login = () => {
         />
         <div className={styles.actions}>
           <Button
-            onClick={register}
+            onClick={signup}
             className={styles.btn}
             disabled={!formIsValid}
           >

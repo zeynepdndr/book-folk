@@ -1,5 +1,5 @@
 import { Routes, Route } from "react-router-dom";
-import Popular from "./components/Popular/Popular";
+import Popular from "./components/Popular/Popular.tsx";
 import Profile from "./components/Profile/Profile";
 import Layout from "./components/Layout/Layout";
 import Books from "./components/Books/Books";

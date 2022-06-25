@@ -10,7 +10,17 @@ function TabPanel(props) {
   return <div>{value === index && <dib>{children}</dib>}</div>;
 }
 
+// const useStyles = makeStyles({
+//   customTabs: {
+//     "& .MuiTab-root": {
+//       color: "#1D4659",
+//       opacity: "70%",
+//     },
+//   },
+// });
+
 const TabsButton = (props) => {
+  // const classes = useStyles();
   const [selectedTab, setSelectedTab] = React.useState(0);
 
   const handleChange = (event, newValue) => {
@@ -33,6 +43,7 @@ const TabsButton = (props) => {
         aria-label="secondary tabs example"
         textColor="secondary"
         indicatorColor="secondary"
+        // classes={{ root: classes.customTabs }}
         sx={{
           width: 300,
           // "&:hover": {
@@ -44,11 +55,11 @@ const TabsButton = (props) => {
           //     fontWeight: 400,
           //     borderRadius: "0.75rem",
           //   },
-          // "& .Mui-selected": {
-          //   color: "#fcb8d2",
-          //   fontWeight: 400,
-          //   borderRadius: "0.75rem",
-          // },
+          "& .Mui-selected": {
+            color: "#fcb8d2",
+            fontWeight: 400,
+            borderRadius: "0.75rem",
+          },
           // "& .Mui-focusVisible": {
           //   backgroundColor: "#fcb8d2",
           // },
@@ -70,8 +81,8 @@ const TabsButton = (props) => {
       {selectedTab === 0 && <SearchBook />}
       {selectedTab === 1 && (
         <BookForm
-          onSaveBookData={props.saveBookDataHandler}
-          onCancel={props.cancelAddBookHandler}
+          onSaveBookData={props.onSaveBookData}
+          onCancel={props.onCancel}
         />
       )}
     </Box>

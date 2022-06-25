@@ -9,16 +9,19 @@ const bookReducer = (state, action) => {
   switch (action.type) {
     case "GET_ALL":
       return { items: action.payload };
+
     case "ADD_ITEM":
-      const existingFavoritesItemIndex = state.items.findIndex(
+      const existingBookItemIndex = state.items.findIndex(
         (item) => item.id === action.payload.id
       );
-      const existingFavoritesItem = state.items[existingFavoritesItemIndex];
-
-      if (!existingFavoritesItem) {
+      console.log("state", state);
+      console.log("action", action);
+      const existingBookItem = state.items[existingBookItemIndex];
+      if (!existingBookItem) {
         const uptadedItems = state.items.concat(action.payload);
         return { items: uptadedItems };
       } else return state;
+
     case "REMOVE_ITEM":
       return {
         items: state.items.filter((item) => item.id !== action.payload),
