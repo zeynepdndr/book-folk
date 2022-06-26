@@ -7,7 +7,7 @@ import BooksChart from "./BooksChart";
 import { firestoreTimestampToDate } from "../../utils/firestoreTimestampToDate";
 import BookListService from "../../services/books.service";
 
-const BookList = (props) => {
+const BookList: React.FC<any> = (props) => {
   //TODO: Change the default filteredYear dynamically
   const currentYear = new Date().getFullYear();
   const [filteredYear, setFilteredYear] = useState(currentYear);

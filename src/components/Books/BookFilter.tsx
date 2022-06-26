@@ -1,6 +1,7 @@
+import React from "react";
 import "./BookFilter.css";
 
-const BookFilter = (props) => {
+const BookFilter: React.FC<any> = (props) => {
   const selectYearHandler = (event) => {
     props.onChangeYear(event.target.value);
   };

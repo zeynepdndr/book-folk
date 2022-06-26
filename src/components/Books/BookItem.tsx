@@ -6,39 +6,39 @@ import FavoritesContext from "../../store/favorites-context";
 import styles from "./BookItem.module.css";
 import noCover from "../../assets/no-cover.jpg";
 
-const BookItem = (props) => {
+const BookItem: React.FC<any> = (props) => {
+  const { item, onDelete } = props;
+
   const favoritesCtx = useContext(FavoritesContext);
 
-  const [date, setDate] = useState(
-    firestoreTimestampToDate(props.item.startDate)
-  );
+  const [date, setDate] = useState(firestoreTimestampToDate(item.startDate));
   const [isEditing, setIsEditing] = useState(false);
 
   const editBookHandler = () => {
     // props.onEdit(props.item);
   };
   const deleteBookHandler = () => {
-    props.onDelete(props.item.id);
+    onDelete(item.id);
   };
 
   const addToFavoritesHandler = () => {
-    favoritesCtx.addItem({ id: props.item.id, bookName: props.item.name });
+    favoritesCtx.addItem({ id: item.id, bookName: item.name });
   };
 
   const removeFromFavoritesHandler = () => {
-    favoritesCtx.removeItem(props.item.id);
+    favoritesCtx.removeItem(item.id);
   };
 
   return (
     <Card className={styles["book-item"]}>
       <img
         src={noCover}
-        alt={props.item.name}
+        alt={item.name}
         className={styles["book-item__cover"]}
       />
       <div className={styles["book-item__description"]}>
-        <h2>{props.item.name}</h2>
-        <div className={styles["book-item__page"]}>{props.item.page}</div>
+        <h2>{item.name}</h2>
+        <div className={styles["book-item__page"]}>{item.page}</div>
         <div className={styles["book-item__operation"]}>
           <button onClick={editBookHandler}>EDIT</button>
           <button onClick={deleteBookHandler}>DELETE</button>

@@ -6,8 +6,10 @@
     "sourceMap": true,
     "noImplicitAny": false,
     "esModuleInterop": true,
-    "module": "commonjs",
-    "target": "es6"
+    "module": "es6",
+    "moduleResolution": "node",
+    "target": "es5"
   },
-  "include": ["./src/**/*"]
+  "include": ["./src/**/*"],
+  "exclude": ["node_nodules"]
 }

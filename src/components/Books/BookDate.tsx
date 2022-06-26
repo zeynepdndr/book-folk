@@ -1,9 +1,12 @@
+import React from "react";
 import "./BookDate.css";
 
-const BookDate = (props) => {
-  const month = props.date.toLocaleString("en-US", { month: "long" });
-  const day = props.date.toLocaleString("en-US", { day: "2-digit" });
-  const year = props.date.getFullYear();
+const BookDate: React.FC<any> = (props) => {
+  const { date } = props;
+
+  const month = date.toLocaleString("en-US", { month: "long" });
+  const day = date.toLocaleString("en-US", { day: "2-digit" });
+  const year = date.getFullYear();
 
   return (
     <div className="book-date">

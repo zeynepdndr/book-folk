@@ -7,7 +7,7 @@ import ErrorModal from "../UI/Modal/ErrorModal";
 import NewBooks from "../NewBook/NewBook";
 import BookList from "./BookList";
 
-const Books = () => {
+const Books: React.FC = () => {
   const authCtx = useContext(AuthContext);
   const bookCtx = useContext(BookContext);
   const [favoritesIsShown, setFavoritesIsShown] = useState(false);

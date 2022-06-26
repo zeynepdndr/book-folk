@@ -1,19 +1,19 @@
+import React from "react";
 import styles from "./Input.module.css";
 
-const Input = (props) => {
+const Input: React.FC<any> = (props) => {
+  const { id, label, isValid, type, value, onChange, onBlur } = props;
   return (
     <div
-      className={`${styles.control} ${
-        props.isValid === false ? styles.invalid : ""
-      }`}
+      className={`${styles.control} ${isValid === false ? styles.invalid : ""}`}
     >
-      <label htmlFor={props.id}>{props.label}</label>
+      <label htmlFor={id}>{label}</label>
       <input
-        type={props.type}
-        id={props.id}
-        value={props.value}
-        onChange={props.onChange}
-        onBlur={props.onBlur}
+        type={type}
+        id={id}
+        value={value}
+        onChange={onChange}
+        onBlur={onBlur}
       />
     </div>
   );
